@@ -1,0 +1,235 @@
+  /* 1. The Core Palette (Liquid Chrome System) */
+        :root {
+            --bg-canvas: #08080A;
+            --bg-card: #141416;
+            --text-primary: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --accent: #E2E8F0;
+            --border-rest: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.35);
+            --glow: 0 20px 40px rgba(226, 232, 240, 0.05), 0 0 30px rgba(226, 232, 240, 0.08);
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Typography Architecture */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            padding: 5vw 10vw;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.1; }
+        h2 { font-size: 2rem; margin-bottom: 2rem; margin-top: 4rem;}
+        p { color: var(--text-secondary); font-size: 1.1rem; max-width: 800px; margin-bottom: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        /* Hero CTA Buttons */
+        .hero-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.75rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-canvas);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(226, 232, 240, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--border-hover);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        /* 3. Component Layout (Airtribe 4:3 Structural Grid) */
+        .work-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 32px;
+            padding: 16px 0 48px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        /* Custom Styled Scrollbar */
+        .work-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .work-scroll-container::-webkit-scrollbar-track {
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-rest);
+        }
+        
+        .work-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 10px;
+        }
+        
+        .work-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .project-card {
+            flex: 0 0 calc(33.333% - 22px);
+            min-width: 380px;
+            aspect-ratio: 4/3;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            text-decoration: none;
+            scroll-snap-align: start;
+            
+            /* 4. The Interaction Model */
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-hover);
+            box-shadow: var(--glow);
+        }
+
+        .card-visual {
+            height: 60%;
+            background-color: #0d0d0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            border-bottom: 1px solid var(--border-rest);
+        }
+
+        .card-info {
+            height: 40%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .list-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .list-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .list-item h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .list-item .meta { margin-bottom: 1rem; color: var(--accent); }
+
+        ul { list-style-type: none; }
+        ul li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .footer-cta { margin-top: 6rem; border-top: 1px solid var(--border-rest); padding-top: 4rem; }
+        
+        /* Footer Links with Logos */
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover { opacity: 0.7; }
+        
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+        }
