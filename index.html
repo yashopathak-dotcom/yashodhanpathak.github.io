@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yashodhan Pathak | AI Systems Architect</title>
-    <meta name="description" content="Official portfolio of Yashodhan Pathak, AI Systems Architect and Product-Focused Builder specializing in autonomous architectures and workflows.">
-<meta name="keywords" content="Yashodhan Pathak, AI Systems Architect, Product Manager, Product Space, Rhinontech">
-<meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;600;700&display=swap');
@@ -17,7 +14,7 @@
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
-    <main class="max-w-4xl mx-auto px-6 py-24">
+    <main id="main-view" class="max-w-4xl mx-auto px-6 py-24">
         
         <header class="mb-24 border-b border-neutral-800 pb-12">
             <div class="flex items-center justify-between mb-6">
@@ -55,8 +52,8 @@
                         An autonomous execution system ensuring nothing critical slips through the cracks. Engineered a fail-safe state machine to govern incident ownership, shifting triage from manual oversight to automated, asynchronous loops.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="text-sm font-semibold text-white border-b border-white hover:text-neutral-300 transition-colors">View Architecture ↗</a>
-                        <a href="#" class="text-sm font-semibold text-neutral-500 hover:text-white transition-colors">Watch Demo ↗</a>
+                        <a href="#project-cos" target="_blank" class="text-sm font-semibold text-white border-b border-white hover:text-neutral-300 transition-colors">View Architecture ↗</a>
+                        <a href="https://youtube.com/shorts/pY4T089M6es?si=5Hwz1waeEaG5S3Y3" target="_blank" class="text-sm font-semibold text-neutral-500 hover:text-white transition-colors">Watch Demo ↗</a>
                     </div>
                 </article>
 
@@ -74,8 +71,8 @@
                         A real-time decision layer for product teams. Built a high-velocity ETL engine utilizing DeepSeek-V3 to ingest raw unstructured customer feedback and synthesize it into live Looker Studio dashboards for quantitative prioritization.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="text-sm font-semibold text-white border-b border-white hover:text-neutral-300 transition-colors">View Architecture ↗</a>
-                        <a href="#" class="text-sm font-semibold text-neutral-500 hover:text-white transition-colors">View Dashboard ↗</a>
+                        <a href="#project-feedback" target="_blank" class="text-sm font-semibold text-white border-b border-white hover:text-neutral-300 transition-colors">View Architecture ↗</a>
+                        <a href="https://lookerstudio.google.com/reporting/902c8093-8a34-4a71-b919-d716cee9e742" target="_blank" class="text-sm font-semibold text-neutral-500 hover:text-white transition-colors">View Dashboard ↗</a>
                     </div>
                 </article>
 
@@ -107,7 +104,6 @@
                     <div class="inline-block bg-white text-black px-3 py-1 rounded text-sm font-bold">
                         CGPA: 9.33/10 (University Topper, Ranked #1)
                     </div>
-                   
                 </div>
             </div>
         </section>
@@ -121,5 +117,177 @@
         </footer>
 
     </main>
+
+    <main id="project-cos-view" class="hidden max-w-4xl mx-auto px-6 py-24">
+        <a href="#" id="back-from-cos" class="inline-block text-xs font-mono text-neutral-400 hover:text-white mb-12">&lt;-- BACK TO PORTFOLIO</a>
+        
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-white mb-4">AI Chief-of-Staff Agent</h1>
+            <p class="text-xl text-neutral-400 font-light">An autonomous execution system that ensures nothing critical slips through the cracks.</p>
+        </header>
+
+        <div class="space-y-12">
+            <section class="bg-neutral-900/50 p-6 rounded-xl border border-neutral-800">
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// Impacts (Metrics)</h3>
+                <ul class="space-y-2 text-neutral-300 font-mono text-sm">
+                    <li>• Reduced decision latency from hours to &lt;10 minutes</li>
+                    <li>• Ensure 100% address segment or escalation within SLA (15 mins)</li>
+                    <li>• Improved Signal to noise ratio by 85% using LLM classification</li>
+                    <li>• Created full operational visibility across incident lifecycles</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// Problem Statement</h3>
+                <p class="text-neutral-300 leading-relaxed">
+                    In fast-scaling teams, critical issues get buried in Slack, emails, and sheets. No ownership tracking, no acknowledgement system, no escalation logic if ignored, and high MTTR/missed SLAs mean existing systems notify problems—but don't ensure resolution.
+                </p>
+            </section>
+
+            <section>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// Solution Architecture</h3>
+                <p class="text-neutral-300 leading-relaxed mb-4">I built an AI Chief-of-Staff Agent—an autonomous loop that:</p>
+                <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+                    <li>Monitors Slack, Gmail, and Sheets in real-time.</li>
+                    <li>Classifies urgency using LLM (Gemini).</li>
+                    <li>Tracks every issue via a state machine (Pending -> Acknowledged -> Escalated).</li>
+                    <li>Forces accountability with human-in-the-loop acknowledgement.</li>
+                    <li>Auto-escalates unresolved tasks via secondary channels.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// How It Works (System Design Workflow)</h3>
+                <div class="space-y-6 text-neutral-300">
+                    <div>
+                        <h4 class="text-white font-semibold mb-1">Scenario 1: Intelligent Filtering</h4>
+                        <p class="text-sm text-neutral-400">The "Ingest Agent" monitors Slack messages in real-time. Instead of simple keyword matching, it leverages Google Gemini AI to understand context and sentiment. Only "Critical" incidents are assigned a unique 6-digit ID and logged into the "State Machine".</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-1">Scenario 2: Human-in-the-loop Acknowledgement</h4>
+                        <p class="text-sm text-neutral-400">The "Accountability Layer" alerts are dispatched to Telegram. The system waits for a structured human response (Acknowledge Task). Upon receipt, it performs a surgical update to the database, transitioning the incident state from <span class="text-yellow-500 font-mono">Pending</span> to <span class="text-green-500 font-mono">Acknowledged</span>.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-1">Scenario 3: Automatic Escalation</h4>
+                        <p class="text-sm text-neutral-400">The "Fail Safe" background worker (Scheduler) audits the database every 15 minutes. It identifies "Ghost Incidents"—those that are still <span class="text-yellow-500 font-mono">Pending</span> past the SLA. It bypasses standard channels and triggers a Pushbullet high-priority alert to ensure immediate executive attention.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">Orchestration</span>
+                    <span class="text-white font-semibold text-sm">Make.com (Integromat)</span>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">Intelligence</span>
+                    <span class="text-white font-semibold text-sm">Google Gemini 1.5 Flash</span>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">Database</span>
+                    <span class="text-white font-semibold text-sm">Google Sheets</span>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">Interfaces</span>
+                    <span class="text-white font-semibold text-sm">Slack, Telegram, Pushbullet</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <main id="project-feedback-view" class="hidden max-w-4xl mx-auto px-6 py-24">
+        <a href="#" id="back-from-feedback" class="inline-block text-xs font-mono text-neutral-400 hover:text-white mb-12">&lt;-- BACK TO PORTFOLIO</a>
+        
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-white mb-4">AI Feedback Intelligence System</h1>
+            <p class="text-xl text-neutral-400 font-light">Turning unstructured customer feedback into real-time product decisions.</p>
+        </header>
+
+        <div class="space-y-12">
+            <section class="bg-neutral-900/50 p-6 rounded-xl border border-neutral-800">
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// Impacts (Metrics)</h3>
+                <ul class="space-y-2 text-neutral-300 font-mono text-sm">
+                    <li>• Reduced feedback processing time by 90% (15-20 hrs -> minutes)</li>
+                    <li>• Decreased feedback-to-action cycle from 1 week to &lt;15 minutes</li>
+                    <li>• Reduced LLM operational costs by ~70% (DeepSeek optimization)</li>
+                    <li>• Enabled real-time visibility into customer sentiment & product issues</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// Problem Statement</h3>
+                <p class="text-neutral-300 leading-relaxed">
+                    Modern SaaS products receive thousands of feedback inputs daily across channels (support tickets, surveys, Slack, emails). However, feedback is unstructured and scattered, teams rely on manual tagging, there is no real-time visibility, and PMs are often forced to guess priorities, leading to misaligned roadmaps.
+                </p>
+            </section>
+
+            <section>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4">// System Pipeline</h3>
+                <div class="space-y-4 text-neutral-300 text-sm">
+                    <p><strong class="text-white">1. Data Ingestion:</strong> Raw feedback is captured in Airtable, which acts as the control data warehouse.</p>
+                    <p><strong class="text-white">2. Logic Orchestration:</strong> A Make.com scenario is triggered by a "Blank Status" filter, ensuring only new data is processed to save computational costs.</p>
+                    <p><strong class="text-white">3. AI Intelligence Layer:</strong> Data is sent to DeepSeek-V3 to perform a three-step cognitive task:</p>
+                    <ul class="list-disc pl-8 space-y-1 text-neutral-400">
+                        <li>Sentiment Scoring: Classifies tone (Positive, Neutral, Negative).</li>
+                        <li>Categorization: Labels feedback by product domain (UI/UX, Performance, Billing, etc.).</li>
+                        <li>Abstractive Summarization: Generates a one-sentence "Executive Summary".</li>
+                    </ul>
+                    <p><strong class="text-white">4. Data Bridging:</strong> Processed insights are synced back to Google Sheets to serve as a lightweight database engine.</p>
+                    <p><strong class="text-white">5. Visualization:</strong> Looker Studio pulls the clean data to generate real-time, interactive heatmaps and sentiment trends.</p>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">Database</span>
+                    <span class="text-white font-semibold text-sm">Airtable / Google Sheets</span>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">Automation Engine</span>
+                    <span class="text-white font-semibold text-sm">Make.com</span>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">AI Engine</span>
+                    <span class="text-white font-semibold text-sm">DeepSeek-V3</span>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg">
+                    <span class="text-xs font-mono text-neutral-500 block">BI & Analytics</span>
+                    <span class="text-white font-semibold text-sm">Looker Studio</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function route() {
+            const hash = window.location.hash;
+            const mainView = document.getElementById('main-view');
+            const cosView = document.getElementById('project-cos-view');
+            const feedbackView = document.getElementById('project-feedback-view');
+
+            // Reset view state
+            mainView.classList.add('hidden');
+            cosView.classList.add('hidden');
+            feedbackView.classList.add('hidden');
+
+            if (hash === '#project-cos') {
+                cosView.classList.remove('hidden');
+                document.title = "Project: AI Chief-of-Staff";
+            } else if (hash === '#project-feedback') {
+                feedbackView.classList.remove('hidden');
+                document.title = "Project: AI Feedback Intelligence";
+            } else {
+                mainView.classList.remove('hidden');
+                document.title = "Yashodhan Pathak | AI Systems Architect";
+            }
+        }
+
+        window.addEventListener('hashchange', route);
+        window.addEventListener('load', route);
+
+        // Navigation fallbacks
+        document.getElementById('back-from-cos').addEventListener('click', () => window.close());
+        document.getElementById('back-from-feedback').addEventListener('click', () => window.close());
+    </script>
 </body>
 </html>
