@@ -7,135 +7,538 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. The Core Palette (Liquid Chrome System) */
+        :root {
+            --bg-canvas: #08080A;
+            --bg-card: #141416;
+            --text-primary: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --accent: #E2E8F0;
+            --border-rest: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.35);
+            --glow: 0 20px 40px rgba(226, 232, 240, 0.05), 0 0 30px rgba(226, 232, 240, 0.08);
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Typography Architecture */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            padding: 5vw 10vw;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.1; }
+        .role-title { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 1.1rem; margin-bottom: 1.5rem; display: block;}
+        
+        h2 { font-size: 2rem; margin-bottom: 2rem; margin-top: 4rem;}
+        p { color: var(--text-secondary); font-size: 1.1rem; max-width: 800px; margin-bottom: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        /* Hero CTA Buttons */
+        .hero-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.75rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-canvas);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(226, 232, 240, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--border-hover);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        /* Stats Table Section */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-rest);
+        }
+
+        .stats-table th, .stats-table td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-rest);
+        }
+
+        .stats-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            background-color: #0d0d0f;
+        }
+
+        .stats-table tr:last-child td { border-bottom: none; }
+        .stats-table td { color: var(--text-secondary); vertical-align: top;}
+        .stats-table td.highlight { color: var(--accent); font-weight: 600; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;}
+        .stats-table td.company { font-weight: 600; color: var(--text-primary); white-space: nowrap;}
+
+        /* Component Layout (Airtribe 4:3 Structural Grid) */
+        .work-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 32px;
+            padding: 16px 0 48px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        /* Custom Styled Scrollbar */
+        .work-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .work-scroll-container::-webkit-scrollbar-track {
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-rest);
+        }
+        
+        .work-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 10px;
+        }
+        
+        .work-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .project-card {
+            flex: 0 0 calc(33.333% - 22px);
+            min-width: 380px;
+            aspect-ratio: 4/3;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            text-decoration: none;
+            scroll-snap-align: start;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-hover);
+            box-shadow: var(--glow);
+        }
+
+        .card-visual {
+            height: 60%;
+            background-color: #0d0d0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            border-bottom: 1px solid var(--border-rest);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Ensures images fill the 60% top half properly */
+        .card-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .card-visual img {
+            opacity: 1;
+        }
+
+        .card-info {
+            height: 40%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Distinctive Tool Highlights */
+        .card-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .tool-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.3rem 0.6rem;
+            background-color: rgba(226, 232, 240, 0.08);
+            border: 1px solid var(--border-hover);
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        /* 3-Column Skills Grid */
+        .list-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .list-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .list-item h3 { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+
+        ul { list-style-type: none; }
+        ul li {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.2rem;
+            font-size: 0.95rem;
+        }
+        ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .footer-cta { margin-top: 6rem; border-top: 1px solid var(--border-rest); padding-top: 4rem; }
+        
+        /* Modal System */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-hover);
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            box-shadow: var(--glow);
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+        }
+
+        .close-btn:hover { color: var(--accent); }
+
+        .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 1px solid var(--border-rest);
+            border-radius: 6px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .modal-links a:hover {
+            border-color: var(--accent);
+            background-color: rgba(226, 232, 240, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        .social-icon { width: 20px; height: 20px; }
+
+    </style>
 </head>
-    <link rel="stylesheet" href="style.css">
 <body>
 
     <header>
-        <h1>Yashodhan Pathak — AI Product Manager</h1>
-        <p>I design 0→1 AI systems and automation workflows that turn unstructured data into scalable business impact. From defining PRDs to deploying LLM state machines, I build products focused on speed, efficiency, and high-urgency user needs.</p>
+        <h1>Yashodhan Pathak</h1>
+        <span class="role-title">AI Product Manager | Associate Product Manager</span>
+        <p>I design 0→1 AI systems and automation pipelines that eliminate operational overhead and scale product workflows. Combining a background in finance with technical execution.</p>
         <div class="hero-links">
-            <a href="#work" class="btn btn-primary">View Featured Work ↓</a>
-            <a href="#" class="btn btn-secondary">Download Resume →</a>
+            <a href="resume.pdf" target="_blank" class="btn btn-primary">Download Resume →</a>
+            <button onclick="openModal()" class="btn btn-secondary">Let's Build</button>
         </div>
     </header>
 
+    <section id="stats">
+        <h2>The Quick Stats</h2>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Company / Project</th>
+                    <th>Core Product Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="highlight">0 → 1</td>
+                    <td class="company">Rhinontech</td>
+                    <td>Defined the product vision, feature prioritization, and roadmap for an automated AI chatbot platform optimized for response efficiency.</td>
+                </tr>
+                <tr>
+                    <td class="highlight">End-to-End</td>
+                    <td class="company">Product Space</td>
+                    <td>Owned the entire product lifecycle of a Proof-of-Work platform, driving execution from initial PRD writing and user flow design to final deployment.</td>
+                </tr>
+                <tr>
+                    <td class="highlight">< 10 Mins</td>
+                    <td class="company">AI Chief-of-Staff</td>
+                    <td>Reduced operational decision latency from hours to minutes by building a state-machine model that filters 85% of communication noise.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
     <section id="work">
-        <h2>Selected Work</h2>
-        <!-- Scrollable Row -->
+        <h2>Projects</h2>
         <div class="work-scroll-container">
             
             <!-- Card 01 -->
-           <a href="project-1.html" class="project-card">
+            <a href="#" class="project-card">
                 <div class="card-visual">
-                    <span class="mono">Image Placeholder</span>
+                    <!-- Replace 'xxx' with your actual image path -->
+                    <img src="xxx" alt="AI Meeting Intelligence" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="mono" style="display: none;">[ Image: xxx ]</span>
                 </div>
                 <div class="card-info">
-                    <div>
-                        <div class="card-title">01 / AI Chief-of-Staff Agent</div>
-                        <div class="card-desc">Reduced decision latency from hours to <10 mins and improved signal-to-noise ratio by 85%.</div>
+                    <div class="card-title">AI Meeting Intelligence</div>
+                    <div class="card-tools">
+                        <span class="tool-tag">N8n</span>
+                        <span class="tool-tag">Deepseek</span>
+                        <span class="tool-tag">Fireflies</span>
                     </div>
-                    <div class="mono" style="color: var(--accent);">LLM • STATE MACHINES • TRIAGE AUTOMATION</div>
                 </div>
             </a>
 
             <!-- Card 02 -->
-            <a href="#" class="project-card">
+            <a href="project-1.html" class="project-card">
                 <div class="card-visual">
-                    <span class="mono">Image Placeholder</span>
+                    <!-- Replace 'yyy' with your actual image path -->
+                    <img src="yyy" alt="AI Chief of Staff Agent" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="mono" style="display: none;">[ Image: yyy ]</span>
                 </div>
                 <div class="card-info">
-                    <div>
-                        <div class="card-title">02 / AI Feedback Intelligence</div>
-                        <div class="card-desc">Automated ingestion system. Slashed the feedback-to-decision cycle from 1 week to <15 minutes.</div>
+                    <div class="card-title">AI Chief of Staff Agent</div>
+                    <div class="card-tools">
+                        <span class="tool-tag">Make</span>
+                        <span class="tool-tag">Gemini</span>
+                        <span class="tool-tag">Sheets</span>
                     </div>
-                    <div class="mono" style="color: var(--accent);">PYTHON • DATA INGESTION • AUTOMATION</div>
                 </div>
             </a>
 
             <!-- Card 03 -->
             <a href="#" class="project-card">
                 <div class="card-visual">
-                    <span class="mono">Image Placeholder</span>
+                    <!-- Replace 'zzz' with your actual image path -->
+                    <img src="zzz" alt="AI Feedback System" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="mono" style="display: none;">[ Image: zzz ]</span>
                 </div>
                 <div class="card-info">
-                    <div>
-                        <div class="card-title">03 / AI Chatbot Platform</div>
-                        <div class="card-desc">Led 0→1 product development, optimizing RAG systems and LLM workflows for high response efficiency.</div>
+                    <div class="card-title">AI Feedback System</div>
+                    <div class="card-tools">
+                        <span class="tool-tag">Make</span>
+                        <span class="tool-tag">Deepseek</span>
+                        <span class="tool-tag">Airtable</span>
                     </div>
-                    <div class="mono" style="color: var(--accent);">RAG • PROMPT ENGINEERING • ROADMAPPING</div>
                 </div>
             </a>
 
-        </div>
-    </section>
-
-    <section id="experience">
-        <h2>Professional Trajectory</h2>
-        <div class="list-item" style="margin-bottom: 1rem;">
-            <h3>Founding Product Manager & Advisor / Rhinontech</h3>
-            <div class="mono meta">06/2025 — 09/2025</div>
-            <p style="margin:0;">Led 0→1 product development, feature prioritization, and cross-functional engineering alignment for an automated AI chatbot platform.</p>
-        </div>
-        <div class="list-item" style="margin-bottom: 1rem;">
-            <h3>Product Manager Intern / Product Space</h3>
-            <div class="mono meta">03/2025 — 05/2025</div>
-            <p style="margin:0;">Built and launched a Proof-of-Work platform end-to-end (PRD to deployment), increasing system responsiveness and user onboarding.</p>
-        </div>
-        <div class="list-item" style="margin-bottom: 1rem;">
-            <h3>Business Development Intern / Telzon</h3>
-            <div class="mono meta">06/2024 — 11/2024</div>
-            <p style="margin:0;">Optimized sales funnel performance and boosted lead generation by 20% using targeted data analysis strategies.</p>
         </div>
     </section>
 
     <section id="capabilities">
-        <h2>Core Capabilities</h2>
-        <div class="list-grid">
+        <h2>My product Stack (Skills & Toolstack)</h2>
+        <div class="list-grid-3">
             <div class="list-item">
-                <h3 style="margin-bottom: 1rem;">Product & Strategy</h3>
+                <h3>Product & Strategy</h3>
                 <ul>
-                    <li>0→1 Product Launch</li>
-                    <li>PRD Writing & Roadmapping</li>
-                    <li>User Research & A/B Testing</li>
+                    <li>PRD Writing & Feature Prioritization</li>
+                    <li>User Research & Usability Testing</li>
+                    <li>Roadmapping & Feature Mapping</li>
+                    <li>Funnel Analysis & Conversion Optimization</li>
                 </ul>
             </div>
             <div class="list-item">
-                <h3 style="margin-bottom: 1rem;">AI Systems & Data</h3>
+                <h3>AI & Automation Engines</h3>
                 <ul>
-                    <li>RAG Systems & LLMs</li>
-                    <li>AI Agents & Automation</li>
-                    <li>Prompt Engineering</li>
-                    <li>Funnel Analysis & Metrics Tracking</li>
-                    <li>Python, SQL, Power BI & Excel</li>
+                    <li>LLM Workflows & Prompt Engineering</li>
+                    <li>Agentic Tool-Calling & RAG Systems</li>
+                    <li>State Machine Modelling</li>
+                    <li>Workflow Orchestration (n8n, Make.com)</li>
                 </ul>
             </div>
-        </div>
-    </section>
-
-    <section id="pedigree">
-        <h2>Pedigree</h2>
-        <div class="list-item">
-            <h3>Bachelor of Business Administration (BBA) – Finance</h3>
-            <div class="mono meta">DAIMSR — Graduated 2023</div>
-            <p style="margin:0; color: var(--text-primary);">CGPA: 9.33 / 10(Ranked 1 in Cohort)</p>
+            <div class="list-item">
+                <h3>Data, Tools & Analytics</h3>
+                <ul>
+                    <li>API Integrations & Webhooks</li>
+                    <li>Looker Studio & Power BI</li>
+                    <li>Airtable, Advanced Excel, & Google Sheets</li>
+                    <li>DeepSeek, Google Gemini, and OpenAI Architectures</li>
+                </ul>
+            </div>
         </div>
     </section>
 
     <footer class="footer-cta">
-        <h2>Let's Build Something New</h2>
-        <p>I am currently looking for full-time Associate PM, Product Manager, or AI Product roles. If you want a high-agency builder who can write PRDs and optimize LLM workflows, let's talk.</p>
-        <div class="social-links">
-            <a href="mailto:ypathak2002@gmail.com" class="mono">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                ypathak2002@gmail.com
-            </a>
-            <a href="https://www.linkedin.com/in/yashodhan-pathak" class="mono" target="_blank">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                LinkedIn
-            </a>
+        <h2>Let's Build Something Meaningful</h2>
+        <p>I look for teams building at the intersection of practical AI capabilities and business reality. If you need a product manager who can translate complex user bottlenecks into live, automated workflows without heavy engineering overhead, let’s talk.</p>
+        <div style="margin-top: 2.5rem;">
+            <button onclick="openModal()" class="btn btn-primary">Let's Build</button>
         </div>
     </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h2 style="margin-top: 0; font-size: 1.75rem;">Let's Connect</h2>
+            <p style="margin-bottom: 0;">Reach out via email or connect with me on LinkedIn to discuss building scalable AI products.</p>
+            
+            <div class="modal-links">
+                <a href="mailto:ypathak2002@gmail.com">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    ypathak2002@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/yashodhan-pathak" target="_blank">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Interactivity Script -->
+    <script>
+        function openModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = 'none';
+        }
+
+        // Close when clicking outside the box
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
