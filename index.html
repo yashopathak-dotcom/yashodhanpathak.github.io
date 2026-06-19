@@ -106,13 +106,18 @@
         }
 
         /* Stats Table Section */
+        .stats-table-wrapper {
+            width: 100%;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border-rest);
+            overflow-x: auto; /* Enables horizontal scroll on mobile */
+        }
+
         .stats-table {
             width: 100%;
             border-collapse: collapse;
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-rest);
+            min-width: 600px; /* Prevents text from squishing on small screens */
         }
 
         .stats-table th, .stats-table td {
@@ -356,6 +361,50 @@
         
         .social-icon { width: 20px; height: 20px; }
 
+        /* =========================================
+           5. MOBILE & RESPONSIVE ARCHITECTURE
+           ========================================= */
+        @media (max-width: 768px) {
+            body { 
+                padding: 8vw 6vw; /* Tighter margins for phones */
+            }
+            
+            /* Typography Scaling */
+            h1 { font-size: 2.25rem; }
+            h2 { font-size: 1.75rem; margin-top: 3rem; }
+            .role-title { font-size: 0.95rem; }
+            p { font-size: 1rem; }
+            
+            /* Button Stacking */
+            .hero-links { 
+                flex-direction: column; 
+                width: 100%; 
+                gap: 1rem; 
+            }
+            .btn { width: 100%; }
+
+            /* Touch-Swipe Project Cards */
+            .work-scroll-container { 
+                gap: 16px; /* Tighter gap */
+                padding-bottom: 24px; 
+            }
+            .project-card { 
+                min-width: 85vw; /* Fills screen but shows next card */
+            }
+            .card-info { padding: 1.25rem; }
+            .card-title { font-size: 1.15rem; }
+
+            /* Skills Grid */
+            .list-grid-3 { 
+                grid-template-columns: 1fr; /* Stack columns */
+                gap: 1.5rem; 
+            }
+            
+            /* Modal adjustments */
+            .modal-content { padding: 2rem 1.5rem; }
+            .modal-links a { font-size: 0.8rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -372,27 +421,29 @@
 
     <section id="stats">
         <h2>INTERNSHIP EXPERIENCE</h2>
-        <table class="stats-table">
-            <thead>
-                <tr>
-                    <th>Company</th>
-                    <th>Role</th>
-                    <th>What I Did</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="company">Rhinontech</td>
-                    <td class="role">Product Manager - Founding Team</td>
-                    <td>Defined the product vision, feature prioritization, and roadmap for an automated AI chatbot platform optimized for response efficiency.</td>
-                </tr>
-                <tr>
-                    <td class="company">Product Space</td>
-                    <td class="role">Product Management Intern</td>
-                    <td>Owned the entire product lifecycle of a "Portfolio" platform, driving execution from initial PRD writing and user flow design to final deployment.</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="stats-table-wrapper">
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>What I Did</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="company">Rhinontech</td>
+                        <td class="role">Product Manager - Founding Team</td>
+                        <td>Defined the product vision, feature prioritization, and roadmap for an automated AI chatbot platform optimized for response efficiency.</td>
+                    </tr>
+                    <tr>
+                        <td class="company">Product Space</td>
+                        <td class="role">Product Management Intern</td>
+                        <td>Owned the entire product lifecycle of a "Portfolio" platform, driving execution from initial PRD writing and user flow design to final deployment.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <section id="work">
