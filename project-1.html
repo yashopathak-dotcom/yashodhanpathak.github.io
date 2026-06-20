@@ -40,7 +40,7 @@
 
         .container {
             max-width: 800px;
-            margin: 0 auto; /* Centers the reading column */
+            margin: 0 auto;
         }
 
         h1, h2, h3 {
@@ -51,7 +51,7 @@
 
         h1 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.1; }
         h2 { font-size: 1.75rem; margin-bottom: 1.5rem; margin-top: 4rem; border-bottom: 1px solid var(--border-rest); padding-bottom: 0.75rem;}
-        h3 { font-size: 1.25rem; margin-bottom: 0.5rem; margin-top: 1.5rem; }
+        h3 { font-size: 1.25rem; margin-bottom: 1rem; margin-top: 3rem; color: var(--text-primary); }
         
         p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
 
@@ -86,24 +86,24 @@
         .project-meta {
             display: flex;
             gap: 2rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-rest);
         }
         
         .meta-block span { display: block; color: var(--text-primary); margin-top: 0.25rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; font-weight: 600;}
 
-        /* Executive Summary TL;DR */
-        .tldr-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-rest);
-            border-left: 4px solid var(--accent); /* Liquid chrome accent line */
-            padding: 2rem;
-            border-radius: 4px 8px 8px 4px;
-            margin-bottom: 4rem;
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background-color: rgba(226, 232, 240, 0.03);
+            border-left: 2px solid var(--border-hover);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
         }
-
-        .tldr-box h3 { margin-top: 0; color: var(--accent); display: flex; align-items: center; gap: 0.5rem;}
-        .tldr-box strong { color: var(--text-primary); }
 
         /* Lists */
         ul { list-style-type: none; margin-bottom: 2rem;}
@@ -123,67 +123,64 @@
         }
         ul li strong { color: var(--text-primary); }
 
-        /* Flowchart Placeholder */
-        .flowchart-placeholder {
+        /* Project Image */
+        .project-image {
             width: 100%;
-            aspect-ratio: 16/9;
-            background-color: #0d0d0f;
+            border-radius: 8px;
+            border: 1px solid var(--border-rest);
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .image-placeholder {
+            text-align: center;
+            padding: 4rem;
+            background: var(--bg-card);
             border: 1px dashed var(--border-hover);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            margin: 2.5rem 0;
+            margin: 1.5rem 0;
             color: var(--text-secondary);
         }
 
-        /* Data Table */
-        .impact-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 2rem;
-            margin-bottom: 3rem;
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-rest);
-        }
-
-        .impact-table th, .impact-table td {
-            padding: 1.25rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-rest);
-        }
-
-        .impact-table th {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-secondary);
-            background-color: #0d0d0f;
-        }
-
-        .impact-table tr:last-child td { border-bottom: none; }
-        .impact-table td { color: var(--text-secondary); }
-        .impact-table td.highlight { color: var(--accent); font-weight: 600; }
-
-        /* Tech Stack Pills */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
+        /* Resource Links Grid */
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
-        .tech-pill {
-            padding: 0.5rem 1rem;
+        .resource-btn {
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
             background-color: var(--bg-card);
             border: 1px solid var(--border-rest);
-            border-radius: 4px;
-            color: var(--accent);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .resource-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        .resource-btn .mono { margin-bottom: 0.5rem; color: var(--accent); }
+        .resource-btn .title { color: var(--text-primary); font-weight: 600; font-size: 1rem; }
+
+        /* Mobile & Responsive Architecture */
+        @media (max-width: 768px) {
+            body { padding: 8vw 6vw; }
+            h1 { font-size: 2.25rem; }
+            h2 { font-size: 1.5rem; margin-top: 3rem; }
+            h3 { font-size: 1.15rem; }
+            p, ul li { font-size: 1rem; }
+            .project-meta { flex-direction: column; gap: 1rem; }
+            .resource-links { grid-template-columns: 1fr; }
+            .image-placeholder { padding: 2rem; }
         }
     </style>
 </head>
@@ -199,106 +196,105 @@
         <!-- Header -->
         <header>
             <h1>AI Chief-of-Staff Agent</h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 0.5rem;">A design exercise in building accountability into operational alerting</p>
+            
             <div class="project-meta">
                 <div class="meta-block mono">
                     Domain
-                    <span>AI Systems, Automation, & Incident Management</span>
+                    <span>Systems Design & Workflow Orchestration</span>
                 </div>
                 <div class="meta-block mono">
-                    Role
-                    <span>Product Lead (0→1)</span>
+                    Core Stack
+                    <span>Make • Gemini • Slack API • Telegram</span>
                 </div>
             </div>
         </header>
 
-        <!-- Executive Summary -->
-        <div class="tldr-box">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Executive Summary</h3>
-            <p style="margin-bottom: 0.75rem;"><strong>The Challenge:</strong> Severe operational bottlenecks caused by high decision latency, noise, and delayed ownership tracking during critical system incidents.</p>
-            <p style="margin-bottom: 0.75rem;"><strong>The Solution:</strong> Designed and launched an automated, AI-powered execution system driven by LLM-based classification and a custom state machine model.</p>
-            <p style="margin-bottom: 0;"><strong>The Outcome:</strong> Slashed decision latency from several hours to under 10 minutes, achieved a 100% SLA-based acknowledgment rate, and cleaned up workflow noise by 85%.</p>
-        </div>
-
         <!-- Section 1 -->
-        <h2>1. The Problem Space</h2>
-        <p>In high-velocity environments, incident response delays cost money and exhaust engineering teams. The existing workflows suffered from:</p>
-        <ul>
-            <li><strong>High Noise-to-Signal Ratio:</strong> Teams were flooded with irrelevant alerts, leading to alert fatigue.</li>
-            <li><strong>Delayed Triage:</strong> Figuring out who owned an issue and where to escalate it took hours, causing critical SLAs to drop.</li>
-            <li><strong>Lack of Accountability:</strong> No real-time visibility into incident progression or ownership tracking.</li>
-        </ul>
+        <h2>Problem Statement</h2>
+        <p>In fast-moving teams, critical issues get buried across Slack, email, and spreadsheets. Most alerting tools notify once and move on — there's no ownership tracking, no forced acknowledgment, and no escalation path if something is ignored. That gap, between notifying a problem and ensuring it gets resolved, is what I wanted to design around.</p>
 
         <!-- Section 2 -->
-        <h2>2. My Core Responsibilities</h2>
-        <p>As the product builder, I didn't just write a PRD; I owned the system design and operational logic from end to end:</p>
+        <h2>What I Designed</h2>
+        <p>I designed an autonomous layer that monitors Slack in real time, classifies urgency using an LLM, and tracks every issue through an explicit state machine: <em>Pending → Acknowledged → Escalated</em>; So nothing critical can silently fall through. The intent was to force accountability into the workflow itself, rather than relying on someone remembering to follow up.</p>
+        
+        <p>The system:</p>
         <ul>
-            <li><strong>System Architecture:</strong> Defined the logic for the LLM classifier and the sequential rules of the execution engine.</li>
-            <li><strong>Cross-Functional Alignment:</strong> Collaborated closely with engineering to ensure API integrations and system performance stayed within high-urgency thresholds.</li>
-            <li><strong>Metrics Definition:</strong> Established success metrics focused heavily on decision speed, noise reduction, and SLA compliance.</li>
+            <li>Monitors Slack and routes flagged messages into a structured tracking layer.</li>
+            <li>Uses Google Gemini to classify urgency from context and tone, not just keywords.</li>
+            <li>Requires a human-in-the-loop acknowledgment before an issue is marked resolved.</li>
+            <li>Auto-escalates to a secondary channel if an issue stays unacknowledged past a target SLA window.</li>
         </ul>
 
-        <!-- Section 3 -->
-        <h2>3. The Solution & AI Implementation</h2>
-        <p>Instead of throwing more human capital at the problem, we built an intelligent agent system to act as an automated Chief-of-Staff.</p>
-
-        <div class="flowchart-placeholder">
-            <div class="mono" style="color: var(--text-secondary);">
-                [ Image Placeholder ]<br><br>
-                <span style="color: var(--text-primary);">Raw Alerts → LLM Triage (85% Noise Filter) → State Machine Model → 15-Min SLA Escalation</span>
-            </div>
+        <div class="disclaimer-box">
+            "This is a self-initiated systems-design project, built to practice modeling an operational workflow as a state machine, not a tool with live operator usage."
         </div>
 
-        <h3>Key Product Pillars:</h3>
-        <ul>
-            <li><strong>Intelligent Noise Filtering:</strong> Implemented LLM-based classification to accurately separate critical operational signals from background noise, successfully reducing the noise ratio by 85%.</li>
-            <li><strong>The State Machine Model:</strong> Designed a deterministic state machine model to track ownership, enforce accountability, and provide real-time incident visibility across teams.</li>
-            <li><strong>Automated Escalation Engine:</strong> Built logic to guarantee a strict 15-minute SLA-based acknowledgment or automated escalation path.</li>
-        </ul>
+        <!-- Section 3 -->
+        <h2>How It Works (System Design)</h2>
+        <p>I built this on a decoupled architecture, by design, so that a failure in one communication channel (say, Telegram going down) wouldn't take down the rest of the recovery process.</p>
+
+        <!-- Scenario 1 -->
+        <h3>Scenario 1: Intelligent Filtering (Entry Point)</h3>
+        <img src="images/project2.jpg" alt="Scenario 1: Intelligent Filtering" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none;" class="image-placeholder mono">
+            [ Image Error: project2.jpg not found ]
+        </div>
+        <p>Watches Slack in real time and uses Gemini to assess context and sentiment rather than matching keywords. Messages classified as critical get a unique ID and are logged into the state machine.</p>
+
+        <!-- Scenario 2 -->
+        <h3>Scenario 2: Human-in-the-Loop Acknowledgment (Accountability Layer)</h3>
+        <div class="image-placeholder mono">
+            [ Image Placeholder: Scenario 2 ]
+        </div>
+        <p>Alerts are dispatched to Telegram. The system waits for a structured reply (Acknowledge [ID]) and, on receipt, updates the record's state from Pending to Acknowledged. This step exists specifically to prevent issues from being silently marked done without a human confirming it.</p>
+
+        <!-- Scenario 3 -->
+        <h3>Scenario 3: Automatic Escalation (Fail-Safe)</h3>
+        <div class="image-placeholder mono">
+            [ Image Placeholder: Scenario 3 ]
+        </div>
+        <p>A scheduled background process audits the database on an interval, looking for "ghost incidents", records still Pending past their target SLA. These bypass standard chat entirely and trigger a high priority alert through a separate channel (Pushbullet), so an ignored issue can't just stay quietly unresolved.</p>
 
         <!-- Section 4 -->
-        <h2>4. Business & Operational Impact</h2>
-        <table class="impact-table">
-            <thead>
-                <tr>
-                    <th>Metric Measured</th>
-                    <th>Before System Launch</th>
-                    <th>After AI Agent</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Decision Latency</td>
-                    <td>Several Hours</td>
-                    <td class="highlight">< 10 Minutes</td>
-                </tr>
-                <tr>
-                    <td>Signal-to-Noise Ratio</td>
-                    <td>Low (Flooded with alerts)</td>
-                    <td class="highlight">85% Improvement</td>
-                </tr>
-                <tr>
-                    <td>SLA Acknowledgment</td>
-                    <td>Variable / Delayed</td>
-                    <td class="highlight">100% Guaranteed (15-min limit)</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Section 5 -->
-        <h2>5. Key Product Takeaways & Learning Lessons</h2>
+        <h2>Key Design Decisions</h2>
         <ul>
-            <li><strong>Deterministic vs. Probabilistic:</strong> AI agents are powerful, but for critical business SLAs, combining a probabilistic LLM (for classification) with a deterministic state machine (for execution) is the gold standard for reliability.</li>
-            <li><strong>Guardrails Matter:</strong> When designing AI-driven automation workflows, setting strict latency boundaries and fallback protocols is just as important as the model accuracy itself.</li>
+            <li><strong>Used a strict-string ID scheme</strong> instead of relying on default numeric IDs, to prevent ID-matching errors (e.g. decimal drift) when syncing between different APIs, a small but important reliability choice.</li>
+            <li><strong>Separated escalation logic from ingestion logic</strong>, running them as independent scheduled processes so an ingestion failure wouldn't silently disable the safety-net escalation path.</li>
+            <li><strong>Chose Gemini for classification over keyword rules</strong>, since natural-language Slack messages don't map cleanly to fixed triggers, this was a deliberate tradeoff of added complexity for better real-world accuracy.</li>
+            <li><strong>Designed for low Make.com operation cost</strong>, consolidating logic into fewer modules per scenario, an operational constraint I treated as a real design input, not an afterthought.</li>
         </ul>
 
-        <!-- Tech Stack -->
-        <h2>🛠️ Tech & Product Stack Used</h2>
-        <div class="tech-stack">
-            <span class="mono tech-pill">LLMs (GPT/Claude API)</span>
-            <span class="mono tech-pill">State Machine Modeling</span>
-            <span class="mono tech-pill">Prompt Engineering</span>
-            <span class="mono tech-pill">Workflow Automation</span>
-            <span class="mono tech-pill">PRD Writing</span>
+        <!-- Section 5 -->
+        <h2>What This Demonstrates</h2>
+        <ul>
+            <li>Modeling an ambiguous operational problem ("things get missed") as an explicit state machine with defined transitions.</li>
+            <li>Designing for failure independently, isolating channels so one outage doesn't cascade.</li>
+            <li>Thinking about accountability and escalation as product requirements, not just notification plumbing.</li>
+        </ul>
+
+        <!-- Section 6: Links -->
+        <h2>Project Artifacts</h2>
+        <div class="resource-links">
+            <a href="https://www.loom.com/share/49f4696befa249cd9acfaee5f2382f16" target="_blank" class="resource-btn">
+                <span class="mono">Watch Video (1.2x Speed)</span>
+                <span class="title">Loom Demo Video ↗</span>
+            </a>
+            
+            <a href="https://eu1.make.com/public/shared-scenario/Gf9YzTtwLz3/autonomous-business-operations-agent" target="_blank" class="resource-btn">
+                <span class="mono">Architecture 1</span>
+                <span class="title">Scenario 1: Filtering ↗</span>
+            </a>
+            
+            <a href="https://eu1.make.com/public/shared-scenario/PVynFoDu5Dg/human-in-the-loop-acknowledgment" target="_blank" class="resource-btn">
+                <span class="mono">Architecture 2</span>
+                <span class="title">Scenario 2: Acknowledgment ↗</span>
+            </a>
+
+            <a href="https://eu1.make.com/public/shared-scenario/DuNPTJl3ihr/automatic-escalation" target="_blank" class="resource-btn">
+                <span class="mono">Architecture 3</span>
+                <span class="title">Scenario 3: Escalation ↗</span>
+            </a>
         </div>
 
         <div style="height: 100px;"></div> <!-- Bottom padding -->
