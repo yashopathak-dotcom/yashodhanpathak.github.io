@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Feedback Intelligence System | Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. The Core Palette (Liquid Chrome System) */
+        :root {
+            --bg-canvas: #08080A;
+            --bg-card: #141416;
+            --text-primary: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --accent: #E2E8F0;
+            --border-rest: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.35);
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Typography Architecture */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            padding: 5vw 10vw;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto; /* Centers the reading column */
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.1; }
+        h2 { font-size: 1.75rem; margin-bottom: 1.5rem; margin-top: 4rem; border-bottom: 1px solid var(--border-rest); padding-bottom: 0.75rem;}
+        h3 { font-size: 1.25rem; margin-bottom: 0.5rem; margin-top: 1.5rem; }
+        
+        p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        /* Meta Data Header */
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-rest);
+        }
+        
+        .meta-block span { display: block; color: var(--text-primary); margin-top: 0.25rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; font-weight: 600;}
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background-color: rgba(226, 232, 240, 0.03);
+            border-left: 2px solid var(--border-hover);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Lists */
+        ul { list-style-type: none; margin-bottom: 2rem;}
+        ul li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 1.1rem;
+        }
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        ul li strong { color: var(--text-primary); }
+
+        /* Project Image */
+        .project-image {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-rest);
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
+        }
+
+        /* Resource Links Grid */
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .resource-btn {
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .resource-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        .resource-btn .mono { margin-bottom: 0.5rem; color: var(--accent); }
+        .resource-btn .title { color: var(--text-primary); font-weight: 600; font-size: 1rem; }
+
+        /* Mobile & Responsive Architecture */
+        @media (max-width: 768px) {
+            body { padding: 8vw 6vw; }
+            h1 { font-size: 2.25rem; }
+            h2 { font-size: 1.5rem; margin-top: 3rem; }
+            p, ul li { font-size: 1rem; }
+            .project-meta { flex-direction: column; gap: 1rem; }
+            .resource-links { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Navigation -->
+        <a href="index.html" class="nav-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Portfolio
+        </a>
+
+        <!-- Header -->
+        <header>
+            <h1>AI Feedback Intelligence System</h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 0.5rem;">A design exercise in turning unstructured feedback into structured product signal</p>
+            
+            <div class="project-meta">
+                <div class="meta-block mono">
+                    Domain
+                    <span>Systems Design & Automation</span>
+                </div>
+                <div class="meta-block mono">
+                    Core Stack
+                    <span>Make • Deepseek • Airtable</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1 -->
+        <h2>Problem Statement</h2>
+        <p>SaaS teams receive feedback across many channels: support tickets, surveys, Slack, email, but most of it stays unstructured. Without a system to process it, teams fall back on manual tagging and gut feel, which makes it hard to spot sentiment trends or prioritize the right problems. I wanted to explore how a lightweight AI pipeline could close that gap.</p>
+
+        <!-- Section 2 -->
+        <h2>What I Designed</h2>
+        <p>I designed an automated pipeline that ingests raw feedback, classifies it using an LLM, and routes structured insights into a dashboard without manual sorting. The goal was a real-time decision layer product teams could check instead of digging through scattered feedback threads.</p>
+        
+        <p>The system:</p>
+        <ul>
+            <li>Ingests feedback from a central data store rather than scattered inboxes.</li>
+            <li>Uses an LLM to score sentiment and categorize issues by product area.</li>
+            <li>Generates a one-line executive summary per entry, designed for fast PM scanning.</li>
+            <li>Syncs structured output to a lightweight database for dashboard visualization.</li>
+        </ul>
+
+        <div class="disclaimer-box">
+            "This is a self-initiated systems-design project, not a production tool with live users, built to practice translating a real operational problem into an automated architecture."
+        </div>
+
+        <!-- Section 3 -->
+        <h2>How It Works (System Design)</h2>
+        
+        <!-- Workflow Image -->
+        <img src="images/project3.JPG.jpg" alt="AI Feedback System Architecture" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; text-align:center; padding: 3rem; background: var(--bg-card); border: 1px dashed var(--border-hover); border-radius: 8px; margin: 2.5rem 0;" class="mono">
+            [ Image Error: project3.JPG.jpg not found ]
+        </div>
+
+        <p>I architected this as a modular, asynchronous pipeline so each stage could fail or scale independently:</p>
+        <ul>
+            <li><strong>Data Ingestion:</strong> Feedback is captured in Airtable, used as the central warehouse.</li>
+            <li><strong>Logic Orchestration:</strong> A Make.com scenario triggers only on unprocessed ("Blank Status") records, by design, to avoid reprocessing and unnecessary AI calls.</li>
+            <li><strong>AI Intelligence Layer:</strong> DeepSeek-V3 handles three tasks per entry: sentiment scoring, categorization by product domain, and abstractive one-sentence summarization.</li>
+            <li><strong>Data Bridging:</strong> Processed insights sync to Google Sheets as an accessible secondary store.</li>
+            <li><strong>Visualization:</strong> Looker Studio reads the clean data to render sentiment trends and heatmaps.</li>
+        </ul>
+
+        <!-- Section 4 -->
+        <h2>Key Design Decisions</h2>
+        <ul>
+            <li><strong>Chose DeepSeek over GPT-4</strong> for the AI layer, prioritizing token cost efficiency over marginal quality gains, a deliberate cost-performance tradeoff for a high-volume use case.</li>
+            <li><strong>Used a status-filter trigger</strong> instead of polling on a timer, so the system only processes new records and avoids redundant API spend.</li>
+            <li><strong>Separated ingestion (Airtable) from reporting (Sheets)</strong> to keep the raw data layer and the dashboard-facing layer independent, making each easier to debug or swap out.</li>
+            <li><strong>Designed for 10,000+ monthly entries</strong> as a target scale assumption, not a measured load test, informing schema and trigger choices.</li>
+        </ul>
+
+        <!-- Section 5 -->
+        <h2>What This Demonstrates</h2>
+        <ul>
+            <li>Translating an ambiguous operational problem ("feedback is scattered") into a concrete system architecture.</li>
+            <li>Making explicit tradeoffs between AI cost, latency, and reliability.</li>
+            <li>Designing for a PM's actual workflow: fast scanning and drill-down rather than just exposing raw data.</li>
+        </ul>
+
+        <!-- Section 6: Links -->
+        <h2>Project Artifacts</h2>
+        <div class="resource-links">
+            <a href="https://www.loom.com/share/49f4696befa249cd9acfaee5f2382f16" target="_blank" class="resource-btn">
+                <span class="mono">Watch Video (1.2x Speed)</span>
+                <span class="title">Loom Demo Video ↗</span>
+            </a>
+            
+            <a href="https://lookerstudio.google.com/reporting/902c9893-8b34-4e7f-b949-47f4cee8e742" target="_blank" class="resource-btn">
+                <span class="mono">Live Environment</span>
+                <span class="title">Looker Studio Dashboard ↗</span>
+            </a>
+            
+            <a href="https://eu1.make.com/public/shared-scenario/lZy39lblUdk/ai-feedback-intelligence-system" target="_blank" class="resource-btn">
+                <span class="mono">Technical Architecture</span>
+                <span class="title">Make.com Scenario ↗</span>
+            </a>
+        </div>
+
+        <div style="height: 100px;"></div> <!-- Bottom padding -->
+    </div>
+
+</body>
+</html>
