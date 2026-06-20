@@ -244,15 +244,17 @@
 
         <!-- Scenario 2 -->
         <h3>Scenario 2: Human-in-the-Loop Acknowledgment (Accountability Layer)</h3>
-        <div class="image-placeholder mono">
-            [ Image Placeholder: Scenario 2 ]
+        <img src="images/Scenario 2.jpg" alt="Scenario 2: Human-in-the-Loop Acknowledgment" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none;" class="image-placeholder mono">
+            [ Image Error: Scenario 2.jpg not found ]
         </div>
         <p>Alerts are dispatched to Telegram. The system waits for a structured reply (Acknowledge [ID]) and, on receipt, updates the record's state from Pending to Acknowledged. This step exists specifically to prevent issues from being silently marked done without a human confirming it.</p>
 
         <!-- Scenario 3 -->
         <h3>Scenario 3: Automatic Escalation (Fail-Safe)</h3>
-        <div class="image-placeholder mono">
-            [ Image Placeholder: Scenario 3 ]
+        <img src="images/Scenario 3.jpg" alt="Scenario 3: Automatic Escalation" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none;" class="image-placeholder mono">
+            [ Image Error: Scenario 3.jpg not found ]
         </div>
         <p>A scheduled background process audits the database on an interval, looking for "ghost incidents", records still Pending past their target SLA. These bypass standard chat entirely and trigger a high priority alert through a separate channel (Pushbullet), so an ignored issue can't just stay quietly unresolved.</p>
 
