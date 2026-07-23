@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliment | Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. The Core Palette (Liquid Chrome System) */
+        :root {
+            --bg-canvas: #08080A;
+            --bg-card: #141416;
+            --text-primary: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --accent: #E2E8F0;
+            --border-rest: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.35);
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Typography Architecture */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            padding: 5vw 10vw;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.1; }
+        h2 { font-size: 1.75rem; margin-bottom: 1.5rem; margin-top: 4rem; border-bottom: 1px solid var(--border-rest); padding-bottom: 0.75rem;}
+        h3 { font-size: 1.25rem; margin-bottom: 1rem; margin-top: 3rem; color: var(--text-primary); }
+        
+        p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        /* Meta Data Header */
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-rest);
+        }
+        
+        .meta-block span { display: block; color: var(--text-primary); margin-top: 0.25rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; font-weight: 600;}
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background-color: rgba(226, 232, 240, 0.03);
+            border-left: 2px solid var(--border-hover);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Lists */
+        ul { list-style-type: none; margin-bottom: 2rem;}
+        ul li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 1.1rem;
+        }
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        ul li strong { color: var(--text-primary); }
+
+        /* Project Image / Placeholder */
+        .project-image {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-rest);
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .image-placeholder {
+            text-align: center;
+            padding: 4rem;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-hover);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Resource Links Grid */
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .resource-btn {
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .resource-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        .resource-btn .mono { margin-bottom: 0.5rem; color: var(--accent); }
+        .resource-btn .title { color: var(--text-primary); font-weight: 600; font-size: 1rem; }
+
+        /* Mobile & Responsive Architecture */
+        @media (max-width: 768px) {
+            body { padding: 8vw 6vw; }
+            h1 { font-size: 2.25rem; }
+            h2 { font-size: 1.5rem; margin-top: 3rem; }
+            h3 { font-size: 1.15rem; }
+            p, ul li { font-size: 1rem; }
+            .project-meta { flex-direction: column; gap: 1rem; }
+            .image-placeholder { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Navigation -->
+        <a href="index.html" class="nav-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Portfolio
+        </a>
+
+        <!-- Header -->
+        <header>
+            <h1>Weekly Pattern Digest</h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 0.5rem;">Turning Repeat Alerts Into One Diagnosis Instead of Four</p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">An automated Monday morning report that reads a month of factory alert data and tells a plant manager which gates are failing, how, and why, before their workday starts.</p>
+            
+            <div class="project-meta">
+                <div class="meta-block mono">
+                    Domain
+                    <span>Manufacturing Ops / Anomaly Detection</span>
+                </div>
+                <div class="meta-block mono">
+                    Core Stack
+                    <span>n8n • OpenAI (GPT 4.1 Mini) • Google Sheets • Gmail</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1 -->
+        <h2>Problem Statement</h2>
+        <p>Aliment's control room dashboard alerts the plant manager when something goes wrong right now. What it doesn't do is tell them when the same thing has been going wrong every Tuesday morning for four weeks in a row. Each alert looks like a new incident on its own. The root cause never actually gets addressed, and the same material loss just repeats.</p>
+        
+        <p>This came from looking closely at Aliment's own proposal document. One screenshot shows a live alerts panel (a patty rejection, a paneer yield deviation, an early FIFO breach risk, each timestamped and severity tagged), but nothing in that panel links out to a pattern view or an alert history by gate. Another page shows the only historical view in the product, an OEE trend chart, but it's a single aggregate number for the whole plant. It doesn't break down by which gate failed, on which shift, or on which day of the week.</p>
+        
+        <p>I don't have access to Aliment's internal tools, so I can't confirm how often this actually happens in production. What I can say is that nothing in either document mentions a pattern view or a proactive analysis layer, and their own materials use the word <em>reactive</em> to describe how compliance evidence gets compiled today. That same word applies to how alerts get handled. A gate that rejects material every Tuesday morning for four weeks isn't four incidents, it's one undiagnosed problem compounding quietly.</p>
+
+        <!-- Section 2 -->
+        <h2>What I Designed</h2>
+        <p>I designed a Weekly Pattern Digest: an automated Monday morning email that identifies which gates are failing, how they're failing, and what type of problem it actually is.</p>
+        
+        <p>It looks for three distinct pattern types, because different gates tend to fail for different reasons:</p>
+        <ul>
+            <li><strong>Scenario A, Time Problem:</strong> the same gate fires alerts on multiple different days during early morning within the same week. This points to a startup or equipment warmup issue, not tied to any specific day.</li>
+            <li><strong>Scenario B, Day Problem:</strong> the same gate fires early morning alerts on the same day of the week, repeating across multiple consecutive weeks. This points to something specific about that day, a supplier delivery pattern, a particular shift operator, or a weekly maintenance cycle the night before.</li>
+            <li><strong>Scenario C, Reliability Problem:</strong> a gate has significantly more total alerts than the plant average, regardless of time or day. This points to general equipment degradation that needs a physical inspection.</li>
+        </ul>
+
+        <div class="disclaimer-box">
+            "This case study was built as part of my interview process with Aliment."
+        </div>
+
+        <!-- Section 3 -->
+        <h2>How It Works</h2>
+        <p>Built as an n8n workflow, running five nodes in sequence.</p>
+
+        <img src="images/Aliment_N8n_Workflow.jpeg" alt="Aliment n8n Workflow Architecture" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none;" class="image-placeholder mono">
+            [ Image Error: Aliment_N8n_Workflow.jpeg not found ]
+        </div>
+
+        <ul>
+            <li>Every Monday at 8 AM, the Schedule Trigger fires automatically.</li>
+            <li>A <strong>Google Sheets</strong> node reads all rows from the factory alert log, 80 rows across 23 gates, as structured data. In this prototype, that sheet stands in for Aliment's actual alert database; in a real deployment, this node would be replaced with a direct connection to their alert system, and the rest of the workflow stays identical.</li>
+            <li>A <strong>Code node</strong> filters to the last 28 days and runs all three pattern analyses. For <strong>Scenario A</strong>, it looks at every alert between 6 AM and 8:30 AM, groups by gate and week, and flags any gate that fired early morning alerts on two or more different days in the same week. For <strong>Scenario B</strong>, it groups the same early morning alerts by gate and day of week, and flags anything repeating on the same day across two or more weeks. For <strong>Scenario C</strong>, it counts total alerts per gate across all times, calculates the plant average, and flags any gate sitting 50 percent or more above it.</li>
+            <li>All three results go to <strong>GPT 4.1 Mini</strong> with a structured prompt: act as an operations analyst, here's the pattern data, write three sentences per pattern in plain language with no jargon, one recommended action per finding, and a plant health summary under 250 words at the end.</li>
+            <li><strong>Gmail</strong> sends the finished report with the subject line "Weekly Pattern Report, Aliment Factory, [today's date]."</li>
+        </ul>
+
+        <p>Running this against the dummy data, the report correctly picked out Gate 21 as both a Scenario A and B problem firing on Tuesdays, Thursdays, and Fridays before 7:15 AM, Gate 09 as a Scenario B problem repeating on Tuesday mornings across weeks, and Gate 18 as a Scenario C reliability problem, sitting at 12 alerts against a plant average of 4.</p>
+
+        <!-- Section 4 -->
+        <h2>Key Design Decisions</h2>
+        <ul>
+            <li><strong>28 days as the lookback window:</strong> a week is too short, since some patterns, especially Scenario B, only show up once the same day repeats across multiple weeks. Three months brings in too much noise from seasonal shifts or product line changes. 28 days gives exactly four weeks, enough to confirm a real pattern while staying close enough to today for a plant manager to actually act on it.</li>
+            <li><strong>Three separate pattern types instead of one:</strong> different gates fail for different reasons, and a single detection approach would catch some problems while completely missing others. Reading one email that covers all three types gives a plant manager the complete picture in one read, instead of checking different dashboards for different problem types.</li>
+        </ul>
+
+        <!-- Section 5 -->
+        <h2>What This Demonstrates</h2>
+        <ul>
+            <li>Finding a real product gap by reading actual product screenshots closely, not just assuming one exists.</li>
+            <li>Defining distinct categories of a problem instead of treating every anomaly the same way.</li>
+            <li>Building something that actually runs and produces a real, readable output, not just a proposed idea.</li>
+        </ul>
+
+        <!-- Section 6: Links -->
+        <h2>Project Artifacts</h2>
+        <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1hH4oZAkik8N_nEp6PF8Qm59_hi4Stxda/view?usp=sharing" target="_blank" class="resource-btn">
+                <span class="mono">Strategy & Spec</span>
+                <span class="title">Product Requirements Doc ↗</span>
+            </a>
+            
+            <a href="https://docs.google.com/spreadsheets/d/122qOSKdNbhLxe98mFwnsbyZb-gzypZGR/edit?usp=sharing&ouid=103368298443485891731&rtpof=true&sd=true" target="_blank" class="resource-btn">
+                <span class="mono">Simulated Metrics</span>
+                <span class="title">Factory Alert Dummy Data ↗</span>
+            </a>
+            
+            <a href="https://drive.google.com/file/d/1KhW2X9-83wYfwlVwOyitFOWecPChW0ez/view?usp=sharing" target="_blank" class="resource-btn">
+                <span class="mono">Workflow Architecture</span>
+                <span class="title">n8n JSON Export ↗</span>
+            </a>
+        </div>
+
+        <div style="height: 100px;"></div> <!-- Bottom padding -->
+    </div>
+
+</body>
+</html>
