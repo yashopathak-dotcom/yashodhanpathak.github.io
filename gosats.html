@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoSats | Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. The Core Palette (Liquid Chrome System) */
+        :root {
+            --bg-canvas: #08080A;
+            --bg-card: #141416;
+            --text-primary: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --accent: #E2E8F0;
+            --border-rest: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.35);
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Typography Architecture */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            padding: 5vw 10vw;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.1; }
+        h2 { font-size: 1.75rem; margin-bottom: 1.5rem; margin-top: 4rem; border-bottom: 1px solid var(--border-rest); padding-bottom: 0.75rem;}
+        h3 { font-size: 1.25rem; margin-bottom: 1rem; margin-top: 3rem; color: var(--text-primary); }
+        
+        p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        /* Meta Data Header */
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-rest);
+        }
+        
+        .meta-block span { display: block; color: var(--text-primary); margin-top: 0.25rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; font-weight: 600;}
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background-color: rgba(226, 232, 240, 0.03);
+            border-left: 2px solid var(--border-hover);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Lists */
+        ul { list-style-type: none; margin-bottom: 2rem;}
+        ul li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 1.1rem;
+        }
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        ul li strong { color: var(--text-primary); }
+
+        /* Project Image */
+        .project-image {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-rest);
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .image-placeholder {
+            text-align: center;
+            padding: 4rem;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-hover);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Resource Links Grid */
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .resource-btn {
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .resource-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        .resource-btn .mono { margin-bottom: 0.5rem; color: var(--accent); }
+        .resource-btn .title { color: var(--text-primary); font-weight: 600; font-size: 1rem; }
+
+        /* Mobile & Responsive Architecture */
+        @media (max-width: 768px) {
+            body { padding: 8vw 6vw; }
+            h1 { font-size: 2.25rem; }
+            h2 { font-size: 1.5rem; margin-top: 3rem; }
+            h3 { font-size: 1.15rem; }
+            p, ul li { font-size: 1rem; }
+            .project-meta { flex-direction: column; gap: 1rem; }
+            .image-placeholder { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Navigation -->
+        <a href="index.html" class="nav-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Portfolio
+        </a>
+
+        <!-- Header -->
+        <header>
+            <h1>GoSats — Fixing the Drop-Off Before the Third Transaction</h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 0.5rem;">A product strategy case study built during GoSats' interview process, digging into why users stop transacting before the rewards start feeling real.</p>
+            
+            <div class="project-meta">
+                <div class="meta-block mono">
+                    Domain
+                    <span>Fintech / Rewards & Retention Strategy</span>
+                </div>
+                <div class="meta-block mono">
+                    Core Stack
+                    <span>Market Sizing • User Research • PRD Writing • Prioritization Frameworks</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1 -->
+        <h2>Problem Statement</h2>
+        <p>GoSats lets users earn Bitcoin and Gold on everyday spending — shopping, vouchers, a prepaid card. The company has crossed 700,000+ users and raised $4.82M, but the actual product question in front of me was narrower: how do you get a new user to complete their third transaction, not just their first.</p>
+        
+        <p>I didn't have access to GoSats' internal funnel data, so I couldn't see the exact drop-off numbers. What I did have was public app store and Play Store reviews, and reading through them told a fairly consistent story. Users weren't leaving because the app was confusing. They were leaving because they didn't trust the reward system — specifically, Sats could only be withdrawn once a user hit 30,000, which for a new user can feel like a goal that's basically out of reach.</p>
+
+        <!-- Section 2 -->
+        <h2>What I Designed</h2>
+        <p>I started with market sizing to understand the ceiling (roughly 12M Bitcoin users in India, with GoSats realistically able to capture 1–3M of that), then worked backwards from the reviews to find the actual root cause using the 5 Whys method. Each "why" moved the answer away from "users don't like the app" and closer to "users don't believe the reward system will ever pay out."</p>
+        
+        <p>From there I built three personas based on patterns that kept repeating across reviews — a first-time crypto user who gives up early, a regular shopper who feels her spending isn't being rewarded proportionally, and a user who wants to redeem early but can't. Then I prioritized the pain points by impact vs. effort, and the redemption threshold came out on top: high impact, low effort to fix.</p>
+        
+        <p>The solutions I proposed:</p>
+        <ul>
+            <li><strong>Restructuring redemption into sub-tiers</strong> (Bronze 3, Bronze 2, etc.) so users can cash out smaller amounts along the way instead of waiting for one distant milestone.</li>
+            <li><strong>A loyalty badge system</strong> with a bumper reward on every 11th transaction, to give long-term users a reason to keep going past the initial reward.</li>
+            <li><strong>A Portfolio feature</strong> consolidating a user's Sats, vouchers, and card balance into one view, since several reviews mentioned not knowing what they'd already earned or where it went.</li>
+            <li><strong>Product Combos</strong>, letting users buy a bundle of vouchers in one transaction instead of five separate ones.</li>
+        </ul>
+
+        <div class="disclaimer-box">
+            "This case study was built as part of my interview process with GoSats, using publicly available material — app reviews, market reports, and GoSats' own product materials. It's not based on internal data, and the numbers throughout (transaction rewards, redemption thresholds, engagement lift) are illustrative estimates meant to demonstrate the reasoning, not measured results."
+        </div>
+
+        <!-- Section 3 -->
+        <h2>How I Approached It</h2>
+        <p>I treated this less like a features list and more like a diagnosis. Before proposing anything, I wanted to be reasonably sure the actual problem was trust in the reward system, not something more obvious like UI friction or lack of awareness (both of which showed up in reviews too, but at lower volume). That's why the 5 Whys step came before any solutioning — jumping straight to "add more rewards" would have missed that the core issue was the shape of the redemption structure, not the reward size itself.</p>
+        </div>
+
+        <!-- Section 4 -->
+        <h2>Key Design Decisions</h2>
+        <ul>
+            <li><strong>Prioritized the redemption threshold</strong> over bigger, splashier features like the AI chatbot or product combos, because it was the one pain point directly tied to why users disengage early, not just what would make the app nicer to use.</li>
+            <li><strong>Kept the sub-tier redemption idea additive</strong>, not a replacement for the existing tier system, since redesigning GoSats' whole rewards architecture wasn't realistic to propose without knowing their backend constraints.</li>
+            <li><strong>Backed every feature with a metric</strong> (redemption rate by sub-tier, badge acquisition rate, portfolio adoption rate) so the recommendations could actually be tested rather than just sounding reasonable.</li>
+        </ul>
+
+        <!-- Section 5 -->
+        <h2>What This Demonstrates</h2>
+        <ul>
+            <li>Sizing a market and validating a hypothesis using only public information.</li>
+            <li>Turning scattered, unstructured complaints (app reviews) into a specific, testable root cause.</li>
+            <li>Prioritizing based on impact vs. effort rather than defaulting to the most interesting feature to build.</li>
+            <li>Thinking in terms of what's measurable, not just what sounds good in a deck.</li>
+        </ul>
+
+        <!-- Section 6: Links -->
+        <h2>Project Artifacts</h2>
+        <div class="resource-links">
+            <a href="https://pitch.com/v/gosats-nvuhym" target="_blank" class="resource-btn">
+                <span class="mono">Presentation Deck</span>
+                <span class="title">View on Pitch.com ↗</span>
+            </a>
+        </div>
+
+        <div style="height: 100px;"></div> <!-- Bottom padding -->
+    </div>
+
+</body>
+</html>
