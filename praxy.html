@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praxy | Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. The Core Palette (Liquid Chrome System) */
+        :root {
+            --bg-canvas: #08080A;
+            --bg-card: #141416;
+            --text-primary: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --accent: #E2E8F0;
+            --border-rest: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.35);
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Typography Architecture */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            padding: 5vw 10vw;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1.1; }
+        h2 { font-size: 1.75rem; margin-bottom: 1.5rem; margin-top: 4rem; border-bottom: 1px solid var(--border-rest); padding-bottom: 0.75rem;}
+        h3 { font-size: 1.25rem; margin-bottom: 1rem; margin-top: 3rem; color: var(--text-primary); }
+        
+        p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        /* Meta Data Header */
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-rest);
+        }
+        
+        .meta-block span { display: block; color: var(--text-primary); margin-top: 0.25rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; font-weight: 600;}
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background-color: rgba(226, 232, 240, 0.03);
+            border-left: 2px solid var(--border-hover);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Lists */
+        ul { list-style-type: none; margin-bottom: 2rem;}
+        ul li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 1.1rem;
+        }
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        ul li strong { color: var(--text-primary); }
+
+        /* Project Image / Placeholder */
+        .project-image {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-rest);
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .image-placeholder {
+            text-align: center;
+            padding: 4rem;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-hover);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Custom Stage Progress Row */
+        .stage-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            gap: 1rem;
+        }
+
+        .stage-pill {
+            background-color: rgba(226, 232, 240, 0.05);
+            border: 1px solid var(--border-hover);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+            flex: 1;
+        }
+
+        .stage-arrow {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+        }
+
+        /* Resource Links Grid */
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .resource-btn {
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-rest);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 400ms var(--transition-curve);
+        }
+
+        .resource-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background-color: rgba(226, 232, 240, 0.03);
+        }
+
+        .resource-btn .mono { margin-bottom: 0.5rem; color: var(--accent); }
+        .resource-btn .title { color: var(--text-primary); font-weight: 600; font-size: 1rem; }
+
+        /* Mobile & Responsive Architecture */
+        @media (max-width: 768px) {
+            body { padding: 8vw 6vw; }
+            h1 { font-size: 2.25rem; }
+            h2 { font-size: 1.5rem; margin-top: 3rem; }
+            h3 { font-size: 1.15rem; }
+            p, ul li { font-size: 1rem; }
+            .project-meta { flex-direction: column; gap: 1rem; }
+            .image-placeholder { padding: 2rem; }
+            .stage-row { justify-content: flex-start; padding: 1rem; }
+            .stage-pill { flex: 0 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Navigation -->
+        <a href="index.html" class="nav-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Portfolio
+        </a>
+
+        <!-- Header -->
+        <header>
+            <h1>Activation Drop off Rescue Agent</h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 0.5rem;">Catching Users Before They Go Quiet Mid Journey</p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">A rule based re engagement prototype built around Praxy's own stated growth goal, testing whether a multi week career journey could catch a stalled user before they disappear from it entirely.</p>
+            
+            <div class="project-meta">
+                <div class="meta-block mono">
+                    Domain
+                    <span>PLG Growth / User Activation</span>
+                </div>
+                <div class="meta-block mono">
+                    Core Stack
+                    <span>n8n • OpenAI • Google Sheets • Telegram</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1 -->
+        <h2>Problem Statement</h2>
+        <p>Praxy's founder has publicly said the priority is scaling to 1 lakh users through product led growth. Praxy's own product describes a multi week career journey (mapping, plan, target list, mock interviews, applications), and funnels shaped like that, several stages spread over several weeks, tend to lose users at the transitions between stages, not just at signup.</p>
+        
+        <p>I didn't have visibility into Praxy's actual usage data, so I couldn't confirm how big that drop off is. What I could say is that it's a structural risk built into the funnel Praxy has already described publicly, and it felt worth exploring through a working prototype rather than a written pitch alone.</p>
+
+        <!-- Section 2 -->
+        <h2>What I Designed</h2>
+        <p>An Activation Drop off Rescue Agent: a workflow that checks each user's current stage against how long they've been inactive, and generates a personalized nudge for anyone who's gone quiet before reaching the finish line.</p>
+        
+        <!-- Stage Progress Row -->
+        <div class="stage-row">
+            <div class="stage-pill">Mapped</div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-pill">Plan Locked</div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-pill">Target List</div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-pill">Mock Interview</div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-pill">Applications</div>
+        </div>
+
+        <p>Two filters decide who actually gets nudged:</p>
+        <ul>
+            <li><strong>Inactive more than 2 days:</strong> recent users are left alone, to avoid over messaging someone who's still actively in the middle of a session.</li>
+            <li><strong>Not already at Applications:</strong> users who are actively applying don't need a re engagement nudge, they're already doing the thing.</li>
+        </ul>
+
+        <div class="disclaimer-box">
+            "This case study was built as part of my interview process with Praxy."
+        </div>
+
+        <!-- Section 3 -->
+        <h2>How It Works</h2>
+        <p>Built as an n8n workflow, structured in seven steps.</p>
+
+        <img src="images/Praxy_N8n_Workflow.png" alt="Praxy n8n Workflow Architecture" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none;" class="image-placeholder mono">
+            [ Image Error: Praxy_N8n_Workflow.png not found ]
+        </div>
+
+        <ul>
+            <li><strong>Trigger:</strong> a schedule node runs the check automatically, daily in a production setup, every minute in this prototype so it's easier to demo.</li>
+            <li><strong>Data Collection:</strong> a Google Sheets node reads each user's stage, last active date, goal, and language preference. In this prototype, the sheet holds invented sample data shaped like Praxy's real user base; in production, this node would point to Praxy's actual conversation and usage logs instead.</li>
+            <li><strong>Filtering:</strong> a Filter node keeps only users who are both inactive and not yet done.</li>
+            <li><strong>Looping:</strong> a Loop Over Items node processes each flagged user individually, so every message is personalized rather than one broadcast sent to everyone.</li>
+            <li><strong>Message Generation:</strong> an OpenAI node generates a short, warm nudge referencing the user's specific goal and stage, in their preferred language.</li>
+            <li><strong>Delivery:</strong> a Telegram node sends the message.</li>
+            <li><strong>Logging:</strong> a Google Sheets node stamps last_nudged so no one gets messaged twice in the same cycle.</li>
+        </ul>
+
+        <!-- Section 4 -->
+        <h2>Key Design Decisions</h2>
+        <ul>
+            <li><strong>Telegram instead of the WhatsApp Business API:</strong> the WhatsApp Business API needs Meta business verification and typically a Twilio or BSP setup, which takes days and isn't something I could access as an external candidate. Telegram's bot API is free and instant to set up, and follows the same underlying pattern (webhook trigger, stored user context, outbound message), so the logic transfers directly to WhatsApp in a real deployment; only the delivery node would change.</li>
+            <li><strong>Rule based stage and recency logic over a predictive model:</strong> a transparent trigger (days inactive plus current stage) is enough to catch the obvious leak point, and doesn't require historical churn data I didn't have access to.</li>
+            <li><strong>One at a time processing over batch messaging:</strong> looping per user, rather than sending one bulk message, is what lets each nudge reference the person's actual goal instead of reading as automated.</li>
+            <li><strong>Two day inactivity threshold, stated as a hypothesis:</strong> this number is a reasonable starting point for a fast moving PLG product, not one derived from Praxy's real engagement data. I'd want to validate it against actual usage patterns before treating it as final.</li>
+        </ul>
+
+        <!-- Section 5 -->
+        <h2>Also Found While Dogfooding Praxy</h2>
+        <p>While testing Praxy myself across WhatsApp and a follow up call, I noticed a few specific UX issues worth flagging, not as the core prototype, but as evidence I tested the product end to end like a user, not just from the landing page.</p>
+        <ul>
+            <li>The same script plays out identically across WhatsApp and the call, with no variation for the channel.</li>
+            <li>Switching from WhatsApp to a call re asks onboarding questions that were already answered.</li>
+            <li>No language preference is captured upfront, despite the product likely serving non English first users.</li>
+            <li>After a channel or language switch, Praxy loses context from earlier in the conversation, which reads more like a session state bug than a design choice.</li>
+            <li>The Career Canvas is delivered as an image rather than a PDF, which makes it harder to save, search, or forward professionally.</li>
+        </ul>
+
+        <!-- Section 6 -->
+        <h2>What This Demonstrates</h2>
+        <ul>
+            <li>Starting from a real, stated business goal and reasoning through where it's most likely to break in practice.</li>
+            <li>Building something that actually runs rather than stopping at a slide.</li>
+            <li>Working with tools like n8n that fit how a lean team like Praxy's builds internal automation today.</li>
+        </ul>
+
+        <!-- Section 7: Links -->
+        <h2>Project Artifacts</h2>
+        <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1Lcrsp71tP4Ml1mP5A6mHYfT6gTKYcZf6/view?usp=sharing" target="_blank" class="resource-btn">
+                <span class="mono">Strategy & Spec</span>
+                <span class="title">Product Requirements Doc ↗</span>
+            </a>
+            
+            <a href="https://docs.google.com/spreadsheets/d/1Hf4z3Sgi81Ma04AD8X0g_SZbTxbvA7OG/edit?usp=sharing&ouid=103368298443485891731&rtpof=true&sd=true" target="_blank" class="resource-btn">
+                <span class="mono">Simulated Metrics</span>
+                <span class="title">Praxy Dummy User Database ↗</span>
+            </a>
+            
+            <a href="https://drive.google.com/file/d/1Q_M5F4eZJHWkTq3zNZqsHZi64_j5LbHb/view?usp=sharing" target="_blank" class="resource-btn">
+                <span class="mono">Workflow Architecture</span>
+                <span class="title">n8n JSON Export ↗</span>
+            </a>
+        </div>
+
+        <div style="height: 100px;"></div> <!-- Bottom padding -->
+    </div>
+
+</body>
+</html>
