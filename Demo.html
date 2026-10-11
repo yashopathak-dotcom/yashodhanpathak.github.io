@@ -63,22 +63,30 @@
                 { id: 1, name: 'Dad’s Care Space', patient: 'Robert Doe (Father)', condition: 'Hypertension & Diabetes' }
             ],
             currentSpaceId: 1,
+            // Default timing presets for dosages
+            timingPresets: {
+                'Breakfast': '08:00 AM',
+                'Lunch': '01:30 PM',
+                'Snacks': '05:00 PM',
+                'Dinner': '08:00 PM'
+            },
             medicines: [
-                { id: 1, name: 'Metformin 500mg', timings: ['Breakfast', 'Dinner'], dose: '1 tablet', balance: 24, total: 30, timingHours: '08:00 AM, 08:00 PM' },
-                { id: 2, name: 'Amlodipine 5mg', timings: ['Breakfast'], dose: '1 tablet', balance: 12, total: 30, timingHours: '08:00 AM' }
+                { id: 1, name: 'Metformin 500mg', timings: ['Breakfast', 'Dinner'], dose: '1 tablet', balance: 24, total: 30, customTimings: { 'Breakfast': '08:00 AM', 'Dinner': '08:00 PM' }, timingHours: 'Breakfast (08:00 AM), Dinner (08:00 PM)', notes: 'Take after meals' },
+                { id: 2, name: 'Amlodipine 5mg', timings: ['Breakfast'], dose: '1 tablet', balance: 12, total: 30, customTimings: { 'Breakfast': '08:00 AM' }, timingHours: 'Breakfast (08:00 AM)', notes: 'Morning dose' }
             ],
             rolesList: [
                 { memberId: 1, memberName: 'Dr. Sarah', roleTitle: 'Primary Caregiver', notifyRefill: true }
             ],
             routines: [
-                { name: 'Blood Pressure (BP)', enabled: true, timing: '08:00 AM' },
-                { name: 'Blood Sugar (Glucose)', enabled: true, timing: '07:30 AM' },
-                { name: 'Weight Tracking', enabled: true, timing: '08:00 AM' },
-                { name: 'Oxygen (SpO2)', enabled: false, timing: '09:00 PM' },
-                { name: 'Temperature', enabled: false, timing: 'As needed' }
+                { id: 1, name: 'Blood Pressure (BP)', unit: 'mmHg', targetRange: '120/80', frequency: 'AM', enabled: true, timing: '08:00 AM', reading: '120/80', caregiverNotes: 'Check before morning meds' },
+                { id: 2, name: 'Blood Sugar (Glucose)', unit: 'mg/dL', targetRange: '90-110', frequency: 'AM & PM', enabled: true, timing: '07:30 AM', reading: '', caregiverNotes: 'Fasting measurement' },
+                { id: 3, name: 'Weight Tracking', unit: 'kg', targetRange: '65-70', frequency: 'AM', enabled: true, timing: '08:00 AM', reading: '', caregiverNotes: 'Weekly check on Mondays' },
+                { id: 4, name: 'Oxygen (SpO2)', unit: '%', targetRange: '95-100', frequency: 'PM', enabled: false, timing: '09:00 PM', reading: '', caregiverNotes: 'Check if short of breath' },
+                { id: 5, name: 'Temperature', unit: '°F', targetRange: '97.8-99.1', frequency: 'As needed', enabled: false, timing: '08:00 PM', reading: '', caregiverNotes: 'If feeling feverish' }
             ],
             inviteCode: 'FAM-' + Math.floor(1000 + Math.random() * 9000),
             modal: null, // { type, data }
+            editingMedicineIndex: null,
             scanningPrescription: false
         };
 
@@ -93,13 +101,13 @@
                 title: "Smart Medication & Inventory Tracking",
                 desc: "Never miss a dose. Track stock levels, get automatic refill alerts, and scan prescriptions instantly with AI OCR.",
                 icon: "fa-pills",
-                color: "bg-blue-500"
+                color: "bg-teal-600"
             },
             {
                 title: "Emergency-Ready Document Vault",
                 desc: "Keep critical medical reports, prescriptions, and insurance IDs accessible instantly when sudden emergencies strike.",
                 icon: "fa-shield-heart",
-                color: "bg-indigo-500"
+                color: "bg-teal-700"
             }
         ];
 
@@ -134,6 +142,9 @@
                     break;
                 case 'care-group-setup':
                     app.innerHTML = renderCareGroupSetup();
+                    break;
+                case 'create-space-step':
+                    app.innerHTML = renderCreateSpaceStep();
                     break;
                 case 'space-dashboard':
                     app.innerHTML = renderSpaceDashboard();
@@ -233,7 +244,7 @@
 
                         <div class="space-y-2">
                             <div class="flex rounded-2xl border border-slate-200 overflow-hidden focus-within:border-teal-500 shadow-sm">
-                                <span class="bg-slate-50 px-4 py-3 text-slate-500 text-sm font-semibold flex items-center border-r border-slate-200">+91</span>
+                                <span class="bg-slate-50 px-4 py-3 text-slate-500 text-sm font-semibold flex items-center border-r border-slate-200">+1 / +91</span>
                                 <input type="tel" id="phone-input" placeholder="Enter 10-digit mobile number" value="${state.phoneNumber}" class="w-full px-4 py-3 text-sm focus:outline-none" />
                             </div>
                             <button onclick="submitPhoneNumber()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 px-6 rounded-2xl shadow-lg shadow-teal-600/20 transition">
@@ -285,7 +296,7 @@
                             <i class="fa-solid fa-arrow-left"></i><span>Back</span>
                         </button>
                         <h1 class="text-2xl font-bold text-slate-900 mb-2">Verify Contact</h1>
-                        <p class="text-slate-500 text-sm">Enter the 4-digit code sent to <span class="font-medium text-slate-800">${state.phoneNumber ? '+91 ' + state.phoneNumber : state.emailInput}</span></p>
+                        <p class="text-slate-500 text-sm">Enter the 4-digit code sent to <span class="font-medium text-slate-800">${state.phoneNumber ? state.phoneNumber : state.emailInput}</span></p>
                     </div>
 
                     <div class="my-auto space-y-6">
@@ -356,7 +367,7 @@
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-slate-900 mb-1 text-base">Self Care</h3>
-                                    <p class="text-slate-500 text-xs leading-relaxed">Directly track your personal medicines, health vitals, and daily wellness schedule.</p>
+                                    <p class="text-slate-500 text-xs leading-relaxed">Directly track your personal medicines, health vitals, and daily wellness schedule without care roles.</p>
                                 </div>
                             </div>
                         </div>
@@ -374,8 +385,8 @@
             if (type === 'care-group') {
                 state.currentStep = 'care-group-setup';
             } else {
-                state.currentStep = 'self-care-dashboard';
-                showToast('Welcome to your Self Care dashboard!');
+                state.currentStep = 'space-dashboard';
+                showToast('Welcome to your Self Care space!');
             }
             render();
         }
@@ -397,7 +408,7 @@
                                 <span class="text-xs font-semibold text-teal-800 uppercase block mb-1">Invite Family Code</span>
                                 <span class="font-mono font-bold text-teal-900 text-lg">${state.inviteCode}</span>
                             </div>
-                            <button onclick="showToast('Invite link and code copied to clipboard!')" class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow">
+                            <button onclick="showToast('Invite link and code FAM-2212 copied to clipboard!')" class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow transition">
                                 <i class="fa-solid fa-share-nodes mr-1.5"></i>Share Link
                             </button>
                         </div>
@@ -407,12 +418,24 @@
                             <div class="flex justify-between items-center">
                                 <h3 class="font-bold text-slate-800 text-sm">Members (${state.members.length})</h3>
                                 <button onclick="openAddMemberModal()" class="text-teal-600 hover:text-teal-700 text-xs font-semibold flex items-center space-x-1">
-                                    <i class="fa-solid fa-plus"></i><span>Add Member</span>
+                                    <i class="fa-solid fa-plus"></i><span>+ Add Member</span>
                                 </button>
                             </div>
 
-                            <div class="space-y-2">
-                                ${state.members.map(m => `
+                            <div class="space-y-3">
+                                <!-- Editable Primary Member (You) Input -->
+                                <div class="p-3.5 bg-teal-50/60 border border-teal-200 rounded-2xl shadow-sm">
+                                    <label class="block text-[11px] font-bold text-teal-800 uppercase mb-1">Primary Admin Name (You)</label>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-9 h-9 rounded-full bg-teal-600 text-white font-bold flex items-center justify-center text-xs flex-shrink-0">
+                                            <i class="fa-solid fa-user-doctor"></i>
+                                        </div>
+                                        <input type="text" id="user-name-input" value="${state.userName}" onchange="updateUserName(this.value)" placeholder="Enter your name e.g. Dr. Sarah" class="w-full px-3 py-1.5 text-sm bg-white border border-teal-200 rounded-xl focus:border-teal-600 focus:outline-none font-semibold text-slate-900" />
+                                        <span class="text-xs bg-teal-200 text-teal-800 font-bold px-2 py-1 rounded-lg">You</span>
+                                    </div>
+                                </div>
+
+                                ${state.members.filter(m => !m.isYou).map(m => `
                                     <div class="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-100 rounded-2xl shadow-sm">
                                         <div class="flex items-center space-x-3">
                                             <div class="w-10 h-10 rounded-full bg-teal-600 text-white font-bold flex items-center justify-center text-sm">${m.name.charAt(0)}</div>
@@ -429,7 +452,7 @@
                     </div>
 
                     <div class="pt-4">
-                        <button onclick="finishCareGroupSetup()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-teal-600/20 transition flex items-center justify-center space-x-2">
+                        <button onclick="goToCreateSpaceStep()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-teal-600/20 transition flex items-center justify-center space-x-2">
                             <span>Completed / Done</span>
                             <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
@@ -438,6 +461,19 @@
                     ${state.modal && state.modal.type === 'add-member' ? renderAddMemberModal() : ''}
                 </div>
             `;
+        }
+
+        function updateUserName(val) {
+            if (val.trim()) {
+                state.userName = val.trim();
+                state.members[0].name = state.userName;
+                state.rolesList[0].memberName = state.userName;
+            }
+        }
+
+        function goToCreateSpaceStep() {
+            state.currentStep = 'create-space-step';
+            render();
         }
 
         function openAddMemberModal() {
@@ -470,11 +506,10 @@
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Role in Care Group</label>
                                 <select id="new-member-role" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none bg-white">
-                                    <option>Primary Caregiver</option>
                                     <option>Medicine Dispenser</option>
+                                    <option>Primary Caregiver</option>
                                     <option>Emergency Contact</option>
-                                    <option>Health Vitals Monitor</option>
-                                    <option>Observer / Family Viewer</option>
+                                    <option>Observer / Monitor</option>
                                 </select>
                             </div>
                             <button onclick="confirmAddMember()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 rounded-2xl shadow">Add Member</button>
@@ -492,14 +527,55 @@
                 showToast('Please enter member name', 'error');
                 return;
             }
-            state.members.push({ id: Date.now(), name, contact, role });
+            state.members.push({ id: Date.now(), name, contact, role, isYou: false });
             closeModals();
-            showToast(`${name} added successfully!`);
+            showToast(`${name} added to care team!`);
         }
 
-        function finishCareGroupSetup() {
+        function renderCreateSpaceStep() {
+            return `
+                <div class="flex-1 flex flex-col justify-between p-6 bg-white overflow-y-auto h-full">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-semibold tracking-wider text-teal-600 uppercase bg-teal-50 px-3 py-1 rounded-full">Step 8.1</span>
+                            <button onclick="state.currentStep='care-group-setup'; render();" class="text-slate-400 text-sm font-medium">Back</button>
+                        </div>
+                        <h1 class="text-2xl font-bold text-slate-900 mb-2">Create Space</h1>
+                        <p class="text-slate-500 text-sm mb-6">Set up a dedicated care space for your family member or patient.</p>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Space Name</label>
+                                <input type="text" id="step-space-name" placeholder="Dad's Care Space" value="${state.newSpaceData.name}" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Patient Name</label>
+                                <input type="text" id="step-patient-name" placeholder="Robert Doe (Father)" value="${state.newSpaceData.patient}" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Patient Condition / Notes</label>
+                                <textarea id="step-patient-condition" rows="3" placeholder="Hypertension & Diabetes management routine" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none">${state.newSpaceData.condition}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <button onclick="confirmCreateSpaceStep()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-teal-600/20 transition flex items-center justify-center space-x-2">
+                            <span>Create & Continue -></span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function confirmCreateSpaceStep() {
+            const name = document.getElementById('step-space-name').value.trim() || "Dad's Care Space";
+            const patient = document.getElementById('step-patient-name').value.trim() || "Robert Doe (Father)";
+            const condition = document.getElementById('step-patient-condition').value.trim() || "Hypertension & Diabetes";
+
+            state.spaces[0] = { id: 1, name, patient, condition };
             state.currentStep = 'space-dashboard';
-            showToast('Care Group & Space initialized!');
+            showToast('Care Space created successfully!');
             render();
         }
 
@@ -525,7 +601,8 @@
                         </div>
                     </div>
 
-                    <div class="p-6 space-y-4">
+                    <div class="p-6 space-y-5">
+                        <!-- 4 Grid Cards -->
                         <div class="grid grid-cols-2 gap-3">
                             <button onclick="state.currentStep='medicines'; render();" class="p-4 bg-white hover:bg-teal-50/50 border border-slate-200 rounded-2xl text-left transition shadow-sm group">
                                 <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mb-3 group-hover:bg-teal-600 group-hover:text-white transition">
@@ -540,7 +617,7 @@
                                     <i class="fa-solid fa-user-shield"></i>
                                 </div>
                                 <h3 class="font-bold text-slate-900 text-sm">Roles & Checks</h3>
-                                <p class="text-xs text-slate-500 mt-0.5">${state.rolesList.length} Team roles assigned</p>
+                                <p class="text-xs text-slate-500 mt-0.5">${state.rolesList.length} Team role assigned</p>
                             </button>
 
                             <button onclick="state.currentStep='routines'; render();" class="p-4 bg-white hover:bg-purple-50/50 border border-slate-200 rounded-2xl text-left transition shadow-sm group">
@@ -551,7 +628,9 @@
                                 <p class="text-xs text-slate-500 mt-0.5">BP, Sugar, Weight schedules</p>
                             </button>
 
-                            <button onclick="showToast('Emergency Vault: All health reports secured!')" class="p-4 bg-white hover:bg-rose-50/50 border border-slate-200 rounded-2xl text-left transition shadow-sm group">
+                            <!-- Vault Card with Coming Soon Badge -->
+                            <button onclick="showToast('Coming Soon!', 'error')" class="p-4 bg-white hover:bg-rose-50/50 border border-slate-200 rounded-2xl text-left transition shadow-sm group relative overflow-hidden">
+                                <span class="absolute top-2 right-2 bg-rose-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow">Coming Soon</span>
                                 <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-3 group-hover:bg-rose-600 group-hover:text-white transition">
                                     <i class="fa-solid fa-file-medical"></i>
                                 </div>
@@ -560,7 +639,7 @@
                             </button>
                         </div>
 
-                        <!-- Today's Schedule Card -->
+                        <!-- Today's Medicine Schedule Card -->
                         <div class="bg-white p-5 border border-slate-200 rounded-3xl shadow-sm">
                             <h3 class="font-bold text-slate-900 text-sm mb-3 flex items-center justify-between">
                                 <span>Today's Medicine Schedule</span>
@@ -585,6 +664,58 @@
                                 `).join('')}
                             </div>
                         </div>
+
+                        <!-- Daily Health Routine Checklists Section (AM and PM Boxes) -->
+                        <div class="bg-white p-5 border border-slate-200 rounded-3xl shadow-sm space-y-4">
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center justify-between">
+                                <span>Daily Health Routine Checklists</span>
+                                <i class="fa-solid fa-stethoscope text-teal-600"></i>
+                            </h3>
+
+                            <!-- AM Checklist Box -->
+                            <div class="p-4 bg-amber-50/50 border border-amber-200 rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center pb-1 border-b border-amber-200/60">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fa-solid fa-sun text-amber-500 text-sm"></i>
+                                        <span class="font-bold text-slate-800 text-xs uppercase tracking-wide">Morning (AM) Routine</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold bg-amber-200 text-amber-800 px-2.5 py-0.5 rounded-full">08:00 AM</span>
+                                </div>
+                                <div class="space-y-2.5">
+                                    ${state.routinesAM.map((r, i) => `
+                                        <div class="flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-amber-100 shadow-sm">
+                                            <div class="flex items-center space-x-2">
+                                                <input type="checkbox" ${r.enabled ? 'checked' : ''} onchange="toggleAMRoutine(${i})" class="w-4 h-4 rounded text-teal-600 focus:ring-teal-500 cursor-pointer" />
+                                                <span class="text-xs font-medium text-slate-800">${r.name}</span>
+                                            </div>
+                                            <input type="text" value="${r.value}" placeholder="Enter reading" onchange="updateAMRoutineVal(${i}, this.value)" class="w-28 px-2 py-1 text-xs border border-slate-200 rounded-lg text-right font-semibold focus:border-teal-600 focus:outline-none" />
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- PM Checklist Box -->
+                            <div class="p-4 bg-indigo-50/50 border border-indigo-200 rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center pb-1 border-b border-indigo-200/60">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fa-solid fa-moon text-indigo-500 text-sm"></i>
+                                        <span class="font-bold text-slate-800 text-xs uppercase tracking-wide">Evening (PM) Routine</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold bg-indigo-200 text-indigo-800 px-2.5 py-0.5 rounded-full">08:00 PM</span>
+                                </div>
+                                <div class="space-y-2.5">
+                                    ${state.routinesPM.map((r, i) => `
+                                        <div class="flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-sm">
+                                            <div class="flex items-center space-x-2">
+                                                <input type="checkbox" ${r.enabled ? 'checked' : ''} onchange="togglePMRoutine(${i})" class="w-4 h-4 rounded text-teal-600 focus:ring-teal-500 cursor-pointer" />
+                                                <span class="text-xs font-medium text-slate-800">${r.name}</span>
+                                            </div>
+                                            <input type="text" value="${r.value}" placeholder="Enter reading" onchange="updatePMRoutineVal(${i}, this.value)" class="w-28 px-2 py-1 text-xs border border-slate-200 rounded-lg text-right font-semibold focus:border-teal-600 focus:outline-none" />
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Bottom Nav -->
@@ -607,6 +738,26 @@
             `;
         }
 
+        function toggleAMRoutine(idx) {
+            state.routinesAM[idx].enabled = !state.routinesAM[idx].enabled;
+            showToast(`${state.routinesAM[idx].name} updated!`);
+        }
+
+        function updateAMRoutineVal(idx, val) {
+            state.routinesAM[idx].value = val;
+            showToast('Reading logged successfully!');
+        }
+
+        function togglePMRoutine(idx) {
+            state.routinesPM[idx].enabled = !state.routinesPM[idx].enabled;
+            showToast(`${state.routinesPM[idx].name} updated!`);
+        }
+
+        function updatePMRoutineVal(idx, val) {
+            state.routinesPM[idx].value = val;
+            showToast('Reading logged successfully!');
+        }
+
         function openCreateSpaceModal() {
             state.modal = { type: 'create-space' };
             render();
@@ -623,17 +774,17 @@
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Space Name</label>
-                                <input type="text" id="space-name-input" placeholder="e.g. Mom's Care Hub" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                <input type="text" id="space-name-input" placeholder="Dad's Care Space" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Patient Name & Relation</label>
-                                <input type="text" id="space-patient-input" placeholder="e.g. Mary Doe (Mother)" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Patient Name</label>
+                                <input type="text" id="space-patient-input" placeholder="Robert Doe (Father)" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Condition / Notes</label>
-                                <input type="text" id="space-condition-input" placeholder="e.g. Arthritis & Arthritis Care" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                <input type="text" id="space-condition-input" placeholder="Hypertension & Diabetes" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
                             </div>
-                            <button onclick="confirmCreateSpace()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 rounded-2xl shadow">Create Space</button>
+                            <button onclick="confirmCreateSpace()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 rounded-2xl shadow">Create & Continue -></button>
                         </div>
                     </div>
                 </div>
@@ -641,13 +792,10 @@
         }
 
         function confirmCreateSpace() {
-            const name = document.getElementById('space-name-input').value.trim();
-            const patient = document.getElementById('space-patient-input').value.trim();
-            const condition = document.getElementById('space-condition-input').value.trim();
-            if (!name || !patient) {
-                showToast('Please fill space name and patient details', 'error');
-                return;
-            }
+            const name = document.getElementById('space-name-input').value.trim() || "Dad's Care Space";
+            const patient = document.getElementById('space-patient-input').value.trim() || "Robert Doe (Father)";
+            const condition = document.getElementById('space-condition-input').value.trim() || "Hypertension & Diabetes";
+            
             state.spaces.push({ id: Date.now(), name, patient, condition });
             closeModals();
             showToast('New Care Space created successfully!');
@@ -676,21 +824,22 @@
                         <div class="space-y-3">
                             ${state.medicines.map((med, idx) => `
                                 <div class="bg-white p-4 border border-slate-200 rounded-2xl shadow-sm flex items-center justify-between">
-                                    <div class="space-y-1">
-                                        <div class="flex items-center space-x-2">
+                                    <div class="space-y-1 pr-2">
+                                        <div class="flex items-center space-x-2 flex-wrap gap-y-1">
                                             <h3 class="font-bold text-slate-900 text-sm">${med.name}</h3>
                                             <span class="text-[10px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded-md font-medium">${med.dose}</span>
                                         </div>
-                                        <p class="text-xs text-slate-500">Timings: ${med.timings.join(', ')} (${med.timingHours})</p>
+                                        <p class="text-xs text-slate-500">Timings: ${med.timingHours}</p>
+                                        ${med.notes ? `<p class="text-[11px] text-slate-400 italic"><i class="fa-regular fa-note-sticky mr-1"></i>${med.notes}</p>` : ''}
                                         <div class="flex items-center space-x-2 pt-1">
                                             <span class="text-[11px] font-semibold ${med.balance < 15 ? 'text-rose-600' : 'text-emerald-600'}">
                                                 Balance: ${med.balance} / ${med.total} tablets
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="flex flex-col space-y-2">
-                                        <button onclick="editMedicine(${idx})" class="text-slate-400 hover:text-teal-600 text-xs p-1"><i class="fa-solid fa-pen"></i></button>
-                                        <button onclick="deleteMedicine(${idx})" class="text-slate-400 hover:text-rose-600 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                                    <div class="flex flex-col space-y-2 flex-shrink-0">
+                                        <button onclick="editMedicine(${idx})" class="p-2 rounded-xl bg-slate-100 hover:bg-teal-50 hover:text-teal-600 text-slate-500 text-xs transition"><i class="fa-solid fa-pen"></i></button>
+                                        <button onclick="deleteMedicine(${idx})" class="p-2 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-500 text-xs transition"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </div>
                             `).join('')}
@@ -714,9 +863,376 @@
                     </div>
 
                     ${state.modal && state.modal.type === 'add-medicine' ? renderAddMedicineModal() : ''}
+                    ${state.modal && state.modal.type === 'edit-timing-clock' ? renderTimingClockModal() : ''}
                     ${state.modal && state.modal.type === 'scan-rx' ? renderScanRxModal() : ''}
                 </div>
             `;
+        }
+
+        function openAddMedicineModal() {
+            state.editingMedicineIndex = null;
+            state.modal = { type: 'add-medicine' };
+            render();
+        }
+
+        function editMedicine(idx) {
+            state.editingMedicineIndex = idx;
+            state.modal = { type: 'add-medicine' };
+            render();
+        }
+
+        function openEditTimingClock(meal) {
+            state.modal = { type: 'edit-timing-clock', meal };
+            render();
+        }
+
+        function renderTimingClockModal() {
+            const meal = state.modal.meal;
+            const currentTime = state.timingPresets[meal] || '08:00 AM';
+            
+            return `
+                <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div class="bg-white w-full max-w-xs rounded-3xl p-6 shadow-2xl animate-fade-in text-center space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-slate-900 text-sm">Custom Time for ${meal}</h3>
+                            <button onclick="state.modal={type:'add-medicine'}; render();" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="py-2">
+                            <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl mx-auto mb-3">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <label class="block text-xs font-semibold text-slate-500 mb-2">Set Specific Daily Hour</label>
+                            <input type="time" id="custom-clock-input" value="${convert12to24(currentTime)}" class="px-4 py-3 border border-slate-200 rounded-2xl text-lg font-bold text-center text-slate-800 focus:border-teal-600 focus:outline-none w-full bg-slate-50" />
+                        </div>
+                        <button onclick="saveCustomTiming('${meal}')" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-2xl text-sm shadow">Confirm Time</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function convert12to24(time12h) {
+            if(!time12h) return "08:00";
+            const [time, modifier] = time12h.split(' ');
+            let [hours, minutes] = time.split(':');
+            if (hours === '12') hours = '00';
+            if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+            return `${hours.toString().padStart(2, '0')}:${minutes}`;
+        }
+
+        function convert24to12(time24h) {
+            if(!time24h) return "08:00 AM";
+            let [hours, minutes] = time24h.split(':');
+            hours = parseInt(hours, 10);
+            const modifier = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            return `${hours.toString().padStart(2, '0')}:${minutes} ${modifier}`;
+        }
+
+        function saveCustomTiming(meal) {
+            const rawVal = document.getElementById('custom-clock-input').value;
+            if (rawVal) {
+                state.timingPresets[meal] = convert24to12(rawVal);
+                showToast(`Updated default timing for ${meal} to ${state.timingPresets[meal]}`);
+            }
+            state.modal = { type: 'add-medicine' };
+            render();
+        }
+
+        function renderAddMedicineModal() {
+            const isEditing = state.editingMedicineIndex !== null;
+            const med = isEditing ? state.medicines[state.editingMedicineIndex] : {
+                name: '',
+                dose: '1 tablet',
+                balance: 30,
+                timings: ['Breakfast'],
+                customTimings: {},
+                notes: ''
+            };
+
+            const selectedTimings = med.timings || [];
+            const customTimes = med.customTimings || {};
+
+            return `
+                <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+                    <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                            <h3 class="font-bold text-slate-900 text-lg">${isEditing ? 'Edit Medicine Details' : 'Add Medicine'}</h3>
+                            <button onclick="closeModals()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Medicine Name</label>
+                                <input type="text" id="med-name" value="${med.name}" placeholder="e.g. Atorvastatin 10mg" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Select When to Take (Timings)</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    ${['Breakfast', 'Lunch', 'Snacks', 'Dinner'].map(meal => {
+                                        const isChecked = selectedTimings.includes(meal);
+                                        const timeDisplay = customTimes[meal] || state.timingPresets[meal];
+                                        return `
+                                            <div class="flex items-center justify-between p-2.5 border ${isChecked ? 'border-teal-500 bg-teal-50/40' : 'border-slate-200'} rounded-xl text-xs font-medium transition">
+                                                <label class="flex items-center space-x-2 cursor-pointer flex-1">
+                                                    <input type="checkbox" name="med-timing" value="${meal}" ${isChecked ? 'checked' : ''} class="rounded text-teal-600 focus:ring-teal-500" />
+                                                    <span>${meal} <span class="text-[10px] text-teal-700 block font-semibold">(${timeDisplay})</span></span>
+                                                </label>
+                                                <button type="button" onclick="openEditTimingClock('${meal}')" class="text-slate-400 hover:text-teal-600 p-1.5 rounded-lg hover:bg-white text-xs" title="Edit ${meal} time">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Dosage</label>
+                                    <select id="med-dose" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none bg-white">
+                                        <option ${med.dose === '1 tablet' ? 'selected' : ''}>1 tablet</option>
+                                        <option ${med.dose === '2 tablets' ? 'selected' : ''}>2 tablets</option>
+                                        <option ${med.dose === '5 ml' ? 'selected' : ''}>5 ml</option>
+                                        <option ${med.dose === '10 ml' ? 'selected' : ''}>10 ml</option>
+                                        <option ${med.dose === '1 capsule' ? 'selected' : ''}>1 capsule</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Stock Balance</label>
+                                    <input type="number" id="med-balance" value="${med.balance}" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Caregiver Notes / Instructions</label>
+                                <input type="text" id="med-notes" value="${med.notes || ''}" placeholder="e.g. Take with warm water after food" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                            </div>
+
+                            <button onclick="confirmSaveMedicine()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 rounded-2xl shadow transition">
+                                ${isEditing ? 'Update Medicine' : 'Save Medicine'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function confirmSaveMedicine() {
+            const name = document.getElementById('med-name').value.trim();
+            const balance = parseInt(document.getElementById('med-balance').value) || 30;
+            const dose = document.getElementById('med-dose').value;
+            const notes = document.getElementById('med-notes').value.trim();
+            const checkboxes = document.querySelectorAll('input[name="med-timing"]:checked');
+            const timings = Array.from(checkboxes).map(cb => cb.value);
+
+            if (!name || timings.length === 0) {
+                showToast('Please enter medicine name and select at least one timing', 'error');
+                return;
+            }
+
+            const customTimings = {};
+            const timingFormattedList = timings.map(meal => {
+                const hour = state.timingPresets[meal];
+                customTimings[meal] = hour;
+                return `${meal} (${hour})`;
+            });
+
+            const medData = {
+                id: state.editingMedicineIndex !== null ? state.medicines[state.editingMedicineIndex].id : Date.now(),
+                name,
+                timings,
+                dose,
+                balance,
+                total: balance,
+                customTimings,
+                timingHours: timingFormattedList.join(', '),
+                notes
+            };
+
+            if (state.editingMedicineIndex !== null) {
+                state.medicines[state.editingMedicineIndex] = medData;
+                showToast(`${name} updated successfully!`);
+            } else {
+                state.medicines.push(medData);
+                showToast(`${name} added successfully!`);
+            }
+
+            state.editingMedicineIndex = null;
+            closeModals();
+            render();
+        }
+
+        function renderRoutinesView() {
+            return `
+                <div class="flex-1 flex flex-col bg-slate-50 overflow-y-auto pb-24 h-full relative">
+                    <div class="bg-white px-6 pt-6 pb-4 border-b border-slate-100 shadow-sm flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <button onclick="state.currentStep='space-dashboard'; render();" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-arrow-left text-lg"></i></button>
+                            <div>
+                                <h1 class="font-bold text-slate-900 text-base">Daily Health Routine</h1>
+                                <p class="text-xs text-slate-500">Track Vitals & Schedules</p>
+                            </div>
+                        </div>
+                        <button onclick="openAddVitalModal()" class="bg-teal-600 text-white hover:bg-teal-700 text-xs font-semibold px-3 py-2 rounded-xl transition shadow flex items-center space-x-1">
+                            <i class="fa-solid fa-plus"></i><span>New Vital</span>
+                        </button>
+                    </div>
+
+                    <div class="p-6 space-y-4">
+                        <p class="text-xs text-slate-500">Configure routine health vitals to monitor daily. Record readings directly in the inputs provided below.</p>
+                        
+                        <div class="space-y-3">
+                            ${state.routines.map((routine, idx) => `
+                                <div class="bg-white p-4 border border-slate-200 rounded-2xl shadow-sm space-y-3 transition hover:border-teal-300">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <input type="checkbox" ${routine.enabled ? 'checked' : ''} onchange="toggleRoutine(${idx})" class="w-5 h-5 rounded text-teal-600 focus:ring-teal-500 cursor-pointer mt-0.5" />
+                                            <div>
+                                                <div class="flex items-center space-x-2">
+                                                    <h3 class="font-bold text-slate-900 text-sm">${routine.name}</h3>
+                                                    ${routine.unit ? `<span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md">${routine.unit}</span>` : ''}
+                                                </div>
+                                                <span class="text-xs text-slate-500 block mt-0.5">
+                                                    <i class="fa-regular fa-clock text-slate-400 mr-1"></i>${routine.timing} ${routine.frequency ? '• ' + routine.frequency : ''}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <button onclick="editRoutineTiming(${idx})" class="text-xs bg-slate-100 text-slate-600 hover:bg-slate-200 px-2.5 py-1 rounded-xl font-medium">Edit</button>
+                                    </div>
+
+                                    ${routine.enabled ? `
+                                        <div class="pt-2 border-t border-slate-100 space-y-2">
+                                            ${routine.targetRange ? `<div class="text-[11px] text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg inline-block font-medium">Target Range: ${routine.targetRange} ${routine.unit || ''}</div>` : ''}
+                                            ${routine.caregiverNotes ? `<p class="text-[11px] text-slate-400"><i class="fa-regular fa-lightbulb mr-1"></i>${routine.caregiverNotes}</p>` : ''}
+                                            <div class="flex items-center space-x-2 pt-1">
+                                                <input type="text" placeholder="Record reading (${routine.unit || 'value'})" value="${routine.reading || ''}" onchange="updateVitalReading(${idx}, this.value)" class="flex-1 px-3 py-2 text-xs border border-slate-200 rounded-xl focus:border-teal-500 focus:outline-none bg-slate-50" />
+                                                <button onclick="showToast('${routine.name} reading logged!')" class="bg-teal-600 text-white text-xs px-3 py-2 rounded-xl font-semibold hover:bg-teal-700 transition">Save</button>
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Prominent Floating Action Button (FAB) for adding new vital -->
+                    <button onclick="openAddVitalModal()" class="fixed bottom-20 right-6 w-14 h-14 bg-teal-600 hover:bg-teal-700 active:scale-95 text-white rounded-full shadow-2xl flex items-center justify-center text-xl transition-all z-40 border-2 border-white focus:outline-none">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+
+                    <!-- Bottom Nav -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 py-3 px-6 flex justify-around items-center">
+                        <button onclick="state.currentStep='space-dashboard'; render();" class="text-slate-400 hover:text-slate-600 flex flex-col items-center text-xs font-medium">
+                            <i class="fa-solid fa-house text-lg mb-1"></i><span>Home</span>
+                        </button>
+                        <button onclick="state.currentStep='medicines'; render();" class="text-slate-400 hover:text-slate-600 flex flex-col items-center text-xs font-medium">
+                            <i class="fa-solid fa-pills text-lg mb-1"></i><span>Meds</span>
+                        </button>
+                        <button onclick="state.currentStep='roles'; render();" class="text-slate-400 hover:text-slate-600 flex flex-col items-center text-xs font-medium">
+                            <i class="fa-solid fa-user-shield text-lg mb-1"></i><span>Roles</span>
+                        </button>
+                        <button onclick="state.currentStep='routines'; render();" class="text-teal-600 flex flex-col items-center text-xs font-medium">
+                            <i class="fa-solid fa-clipboard-list text-lg mb-1"></i><span>Routines</span>
+                        </button>
+                    </div>
+
+                    ${state.modal && state.modal.type === 'add-vital' ? renderAddVitalModal() : ''}
+                </div>
+            `;
+        }
+
+        function openAddVitalModal() {
+            state.modal = { type: 'add-vital' };
+            render();
+        }
+
+        function renderAddVitalModal() {
+            return `
+                <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+                    <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                            <h3 class="font-bold text-slate-900 text-lg">Add New Custom Vital</h3>
+                            <button onclick="closeModals()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Vital Name</label>
+                                <input type="text" id="vital-name" placeholder="e.g. Pulse Rate, SpO2, Blood Pressure" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Measurement Unit</label>
+                                    <input type="text" id="vital-unit" placeholder="e.g. mmHg, mg/dL, bpm, %" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Target / Normal Range</label>
+                                    <input type="text" id="vital-target" placeholder="e.g. 120/80, 90-110" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Frequency</label>
+                                    <select id="vital-frequency" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none bg-white">
+                                        <option value="AM">Morning (AM)</option>
+                                        <option value="PM">Evening (PM)</option>
+                                        <option value="AM & PM">Both AM & PM</option>
+                                        <option value="As needed">As needed</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Clock Time</label>
+                                    <input type="time" id="vital-time" value="08:00" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Caregiver Assignment / Notes</label>
+                                <input type="text" id="vital-notes" placeholder="e.g. Check before breakfast" class="w-full px-4 py-3 border border-slate-200 rounded-2xl text-sm focus:border-teal-600 focus:outline-none" />
+                            </div>
+
+                            <button onclick="confirmAddVital()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 rounded-2xl shadow transition">Save Vital Tracker</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function confirmAddVital() {
+            const name = document.getElementById('vital-name').value.trim();
+            const unit = document.getElementById('vital-unit').value.trim();
+            const targetRange = document.getElementById('vital-target').value.trim();
+            const frequency = document.getElementById('vital-frequency').value;
+            const timeRaw = document.getElementById('vital-time').value;
+            const caregiverNotes = document.getElementById('vital-notes').value.trim();
+
+            if (!name) {
+                showToast('Please enter a vital name', 'error');
+                return;
+            }
+
+            const timingFormatted = convert24to12(timeRaw);
+
+            state.routines.push({
+                id: Date.now(),
+                name,
+                unit,
+                targetRange,
+                frequency,
+                enabled: true,
+                timing: timingFormatted,
+                reading: '',
+                caregiverNotes
+            });
+
+            closeModals();
+            showToast(`${name} vital tracker added successfully!`);
+            render();
+        }
+
+        function updateVitalReading(idx, val) {
+            state.routines[idx].reading = val;
         }
 
         function openAddMedicineModal() {
@@ -878,7 +1394,7 @@
                                 <div class="bg-white p-4 border border-slate-200 rounded-2xl shadow-sm space-y-3">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center space-x-3">
-                                            <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-sm">${role.memberName.charAt(0)}</div>
+                                            <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 font-bold flex items-center justify-center text-sm">${role.memberName.charAt(0)}</div>
                                             <div>
                                                 <h3 class="font-bold text-slate-900 text-sm">${role.memberName}</h3>
                                                 <span class="text-xs text-teal-600 font-medium">${role.roleTitle}</span>
@@ -941,7 +1457,7 @@
                                 <option>Primary Caregiver</option>
                                 <option>Medicine Dispenser</option>
                                 <option>Emergency Contact</option>
-                                <option>Health Vitals Monitor</option>
+                                <option>Observer / Monitor</option>
                             </select>
                         </div>
                         <label class="flex items-center space-x-2 pt-2">
@@ -982,24 +1498,40 @@
                     <div class="bg-white px-6 pt-6 pb-4 border-b border-slate-100 shadow-sm flex justify-between items-center">
                         <div class="flex items-center space-x-3">
                             <button onclick="state.currentStep='space-dashboard'; render();" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-arrow-left text-lg"></i></button>
-                            <h1 class="font-bold text-slate-900 text-base">Daily Health Routine Checklist</h1>
+                            <h1 class="font-bold text-slate-900 text-base">Vitals Checklist Schedule</h1>
                         </div>
                         <button onclick="showToast('Routines saved successfully!')" class="bg-teal-600 text-white hover:bg-teal-700 text-xs font-semibold px-3 py-2 rounded-xl transition shadow">Save</button>
                     </div>
 
                     <div class="p-6 space-y-4">
-                        <p class="text-xs text-slate-500">Select which vital checks and routines are required for daily monitoring along with their timings.</p>
+                        <p class="text-xs text-slate-500">Configure vital checks and timings for AM & PM schedules.</p>
+                        
                         <div class="space-y-3">
-                            ${state.routines.map((routine, idx) => `
+                            <h3 class="font-bold text-xs text-slate-500 uppercase tracking-wider">AM Vitals</h3>
+                            ${state.routinesAM.map((routine, idx) => `
                                 <div class="bg-white p-4 border border-slate-200 rounded-2xl shadow-sm flex items-center justify-between">
                                     <div class="flex items-center space-x-3">
-                                        <input type="checkbox" ${routine.enabled ? 'checked' : ''} onchange="toggleRoutine(${idx})" class="w-5 h-5 rounded text-teal-600 focus:ring-teal-500 cursor-pointer" />
+                                        <input type="checkbox" ${routine.enabled ? 'checked' : ''} onchange="toggleAMRoutine(${idx})" class="w-5 h-5 rounded text-teal-600 focus:ring-teal-500 cursor-pointer" />
                                         <div>
                                             <h3 class="font-bold text-slate-900 text-sm">${routine.name}</h3>
                                             <span class="text-xs text-slate-500">Scheduled: ${routine.timing}</span>
                                         </div>
                                     </div>
-                                    <button onclick="editRoutineTiming(${idx})" class="text-xs bg-slate-100 text-slate-600 hover:bg-slate-200 px-3 py-1.5 rounded-xl font-medium">Edit Time</button>
+                                    <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-1 rounded-lg">${routine.value || 'No value'}</span>
+                                </div>
+                            `).join('')}
+
+                            <h3 class="font-bold text-xs text-slate-500 uppercase tracking-wider pt-2">PM Vitals</h3>
+                            ${state.routinesPM.map((routine, idx) => `
+                                <div class="bg-white p-4 border border-slate-200 rounded-2xl shadow-sm flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" ${routine.enabled ? 'checked' : ''} onchange="togglePMRoutine(${idx})" class="w-5 h-5 rounded text-teal-600 focus:ring-teal-500 cursor-pointer" />
+                                        <div>
+                                            <h3 class="font-bold text-slate-900 text-sm">${routine.name}</h3>
+                                            <span class="text-xs text-slate-500">Scheduled: ${routine.timing}</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-1 rounded-lg">${routine.value || 'No value'}</span>
                                 </div>
                             `).join('')}
                         </div>
@@ -1024,95 +1556,6 @@
             `;
         }
 
-        function toggleRoutine(idx) {
-            state.routines[idx].enabled = !state.routines[idx].enabled;
-            showToast(`${state.routines[idx].name} schedule updated.`);
-        }
-
-        function editRoutineTiming(idx) {
-            const current = state.routines[idx];
-            const newTiming = prompt(`Enter timing for ${current.name}:`, current.timing);
-            if (newTiming) {
-                current.timing = newTiming;
-                showToast('Routine timing updated!');
-                render();
-            }
-        }
-
-        function renderSelfCareDashboard() {
-            return `
-                <div class="flex-1 flex flex-col bg-slate-50 overflow-y-auto pb-24 h-full">
-                    <div class="bg-white px-6 pt-6 pb-4 border-b border-slate-100 shadow-sm flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold shadow">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div>
-                                <h1 class="font-bold text-slate-900 text-base">My Self-Care Hub</h1>
-                                <p class="text-xs text-slate-500">Personal Health & Medicine Tracker</p>
-                            </div>
-                        </div>
-                        <button onclick="state.currentStep='profile-select'; render();" class="text-slate-400 hover:text-slate-600 text-xs font-medium">Switch Profile</button>
-                    </div>
-
-                    <div class="p-6 space-y-4">
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="state.currentStep='medicines'; render();" class="p-4 bg-white hover:bg-teal-50/50 border border-slate-200 rounded-2xl text-left transition shadow-sm group">
-                                <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mb-3 group-hover:bg-teal-600 group-hover:text-white transition">
-                                    <i class="fa-solid fa-pills"></i>
-                                </div>
-                                <h3 class="font-bold text-slate-900 text-sm">My Medicines</h3>
-                                <p class="text-xs text-slate-500 mt-0.5">${state.medicines.length} active pills</p>
-                            </button>
-
-                            <button onclick="state.currentStep='routines'; render();" class="p-4 bg-white hover:bg-purple-50/50 border border-slate-200 rounded-2xl text-left transition shadow-sm group">
-                                <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-3 group-hover:bg-purple-600 group-hover:text-white transition">
-                                    <i class="fa-solid fa-clipboard-list"></i>
-                                </div>
-                                <h3 class="font-bold text-slate-900 text-sm">My Vitals Log</h3>
-                                <p class="text-xs text-slate-500 mt-0.5">Daily health checks</p>
-                            </button>
-                        </div>
-
-                        <!-- Personal Medicine Summary -->
-                        <div class="bg-white p-5 border border-slate-200 rounded-3xl shadow-sm">
-                            <h3 class="font-bold text-slate-900 text-sm mb-3">Today's Personal Schedule</h3>
-                            <div class="space-y-2.5">
-                                ${state.medicines.map(med => `
-                                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-100">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">
-                                                <i class="fa-solid fa-pills"></i>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-semibold text-slate-900 text-xs">${med.name}</h4>
-                                                <span class="text-[11px] text-slate-500">${med.dose} • ${med.timingHours}</span>
-                                            </div>
-                                        </div>
-                                        <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Stock: ${med.balance}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Nav -->
-                    <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 py-3 px-6 flex justify-around items-center">
-                        <button onclick="state.currentStep='self-care-dashboard'; render();" class="text-blue-600 flex flex-col items-center text-xs font-medium">
-                            <i class="fa-solid fa-house text-lg mb-1"></i><span>Home</span>
-                        </button>
-                        <button onclick="state.currentStep='medicines'; render();" class="text-slate-400 hover:text-slate-600 flex flex-col items-center text-xs font-medium">
-                            <i class="fa-solid fa-pills text-lg mb-1"></i><span>Meds</span>
-                        </button>
-                        <button onclick="state.currentStep='routines'; render();" class="text-slate-400 hover:text-slate-600 flex flex-col items-center text-xs font-medium">
-                            <i class="fa-solid fa-clipboard-list text-lg mb-1"></i><span>Routines</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Initialize App on load
         window.onload = function() {
             render();
         };
