@@ -258,28 +258,28 @@
         <div class="space-y-4 mb-6">
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Space Name</label>
-                <input type="text" value="Dad's Care Space" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+                <input type="text" placeholder="e.g. Dad's Care Space" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
             </div>
             
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Name</label>
-                <input type="text" value="Robert Doe (Father)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+                <input type="text" placeholder="e.g. Robert Doe (Father)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
             </div>
             
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Condition / Notes</label>
-                <textarea rows="2" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary resize-none">Type 2 Diabetes, Hypertension. Daily BP and Blood Sugar monitoring.</textarea>
+                <textarea rows="2" placeholder="e.g. Type 2 Diabetes, Hypertension..." class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary resize-none"></textarea>
             </div>
 
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2 mt-2">Daily Vitals To Track</label>
                 <div class="grid grid-cols-2 gap-3">
                     <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
-                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary" checked>
+                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
                         <span class="text-sm font-medium text-gray-700">Blood Pressure</span>
                     </label>
                     <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
-                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary" checked>
+                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
                         <span class="text-sm font-medium text-gray-700">Blood Sugar</span>
                     </label>
                     <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
@@ -329,7 +329,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-[#1e293b] text-[13px] leading-tight mb-1">Medicines</h3>
-                        <p class="text-[#8892a0] text-[10px] font-medium">2 Active meds & stock</p>
+                        <p class="text-[#8892a0] text-[10px] font-medium">Manage daily meds</p>
                     </div>
                 </div>
 
@@ -339,7 +339,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-[#1e293b] text-[13px] leading-tight mb-1">Roles & Checks</h3>
-                        <p class="text-[#8892a0] text-[10px] font-medium">1 Team roles assigned</p>
+                        <p class="text-[#8892a0] text-[10px] font-medium">Manage team roles</p>
                     </div>
                 </div>
 
@@ -381,17 +381,6 @@
                             <p class="text-[#8892a0] text-[11px] font-medium">1 tablet • 08:00 AM, 08:00 PM</p>
                         </div>
                         <div class="bg-[#dcfce7] text-[#166534] text-[10px] font-bold px-2.5 py-1.5 rounded-lg ml-2 whitespace-nowrap group-hover:shadow-sm transition-all">Stock: 24/30</div>
-                    </div>
-                    
-                    <div class="group bg-[#f8fafc] border border-transparent hover:border-[#e2e8f0] rounded-2xl p-[14px] flex items-center transition-all duration-300 hover:shadow-[0_4px_12px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 cursor-pointer">
-                        <div class="w-10 h-10 bg-[#e6f7f5] rounded-full flex items-center justify-center mr-3.5 shrink-0 group-hover:scale-105 transition-transform">
-                            <svg class="w-5 h-5 text-teal-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5h-1a3 3 0 00-2.83 2H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM5 15V9h8.22a5 5 0 010 6H5zm14 0h-3.22c.28-.9.28-1.9 0-2.8H19v2.8zm0-4.8h-2.14a4.98 4.98 0 00-1.86-1.86V7h4v3.2z"/></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-[#1e293b] text-[13px] mb-0.5">Amlodipine 5mg</h4>
-                            <p class="text-[#8892a0] text-[11px] font-medium">1 tablet • 08:00 AM</p>
-                        </div>
-                        <div class="bg-[#fee2e2] text-[#b91c1c] text-[10px] font-bold px-2.5 py-1.5 rounded-lg ml-2 whitespace-nowrap group-hover:shadow-sm transition-all">Stock: 12/30</div>
                     </div>
                 </div>
             </div>
@@ -444,14 +433,14 @@
             </div>
 
             <div class="px-5 mt-6">
-                <h3 class="font-bold text-gray-900 text-[14px] mb-4">Active Medicines (2)</h3>
+                <h3 class="font-bold text-gray-900 text-[14px] mb-4">Active Medicines</h3>
                 
-                <div class="space-y-4">
+                <div id="medicines-list" class="space-y-4">
                     <!-- Med 1 -->
-                    <div class="border border-gray-100 rounded-2xl p-4 shadow-sm relative">
+                    <div class="removable-card border border-gray-100 rounded-2xl p-4 shadow-sm relative mb-4">
                         <div class="absolute top-4 right-4 flex space-x-3 text-gray-400">
                             <button onclick="openAddMedModal()" class="hover:text-teal-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
-                            <button class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                            <button onclick="deleteCard(this)" class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                         </div>
                         <h4 class="font-bold text-gray-900 text-[15px]">Metformin 500mg</h4>
                         <p class="text-gray-500 text-[12px] mt-0.5 mb-2">Dosage: 1 tablet</p>
@@ -461,26 +450,6 @@
                         </div>
                         <div class="flex justify-between items-center pt-3 border-t border-gray-50">
                             <p class="text-gray-500 text-[12px]">Balance Tablets: <span class="font-bold text-gray-900">28 / 30</span></p>
-                            <div class="flex items-center text-teal-primary text-[11px] font-bold">
-                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
-                                Refill Reminder On
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Med 2 -->
-                    <div class="border border-gray-100 rounded-2xl p-4 shadow-sm relative">
-                        <div class="absolute top-4 right-4 flex space-x-3 text-gray-400">
-                            <button onclick="openAddMedModal()" class="hover:text-teal-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
-                            <button class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                        </div>
-                        <h4 class="font-bold text-gray-900 text-[15px]">Amlodipine 5mg</h4>
-                        <p class="text-gray-500 text-[12px] mt-0.5 mb-2">Dosage: 1 tablet</p>
-                        <div class="flex space-x-2 mb-4">
-                            <span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-md">Breakfast</span>
-                        </div>
-                        <div class="flex justify-between items-center pt-3 border-t border-gray-50">
-                            <p class="text-gray-500 text-[12px]">Balance Tablets: <span class="font-bold text-gray-900">14 / 30</span></p>
                             <div class="flex items-center text-teal-primary text-[11px] font-bold">
                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
                                 Refill Reminder On
@@ -530,10 +499,11 @@
             <div class="px-5 mt-4">
                 <h3 class="font-bold text-gray-900 text-[14px] mb-4">Assigned Caregiver Roles</h3>
                 
-                <div class="space-y-4">
-                    <div class="border border-gray-100 rounded-2xl p-4 shadow-sm relative">
+                <div id="roles-list" class="space-y-4">
+                    <div class="removable-card border border-gray-100 rounded-2xl p-4 shadow-sm relative mb-4">
                         <div class="absolute top-4 right-4 flex space-x-3 text-gray-400">
-                            <button class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                            <button onclick="openAddRoleModal()" class="hover:text-teal-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                            <button onclick="deleteCard(this)" class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                         </div>
                         <h4 class="font-bold text-gray-900 text-[15px] mb-1">Dr. Sarah</h4>
                         <span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-md mb-4 inline-block">Primary Caregiver</span>
@@ -569,7 +539,7 @@
 
     <!-- Modals (Global overlay placement) -->
     
-    <!-- Add Member Modal (From original) -->
+    <!-- Add Member Modal -->
     <div id="modal-add-member" class="absolute inset-0 bg-gray-900/40 hidden flex-col justify-center px-4 z-50 backdrop-blur-[1px]">
         <div class="bg-white rounded-[24px] p-6 shadow-2xl relative w-full">
             <button class="absolute top-5 right-5 text-gray-400 hover:text-gray-600" onclick="closeModal()">
@@ -614,7 +584,7 @@
             <div class="space-y-4 mb-6">
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Medicine Name</label>
-                    <input type="text" placeholder="e.g. Paracetamol 500mg" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary placeholder-gray-300">
+                    <input id="input-med-name" type="text" placeholder="e.g. Paracetamol 500mg" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary placeholder-gray-300">
                 </div>
                 
                 <div>
@@ -622,31 +592,31 @@
                     <div class="grid grid-cols-2 gap-3">
                         <label class="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-teal-primary transition">
                             <div class="flex items-center">
-                                <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
-                                <span class="text-[11px] font-medium text-gray-700 ml-2">Breakfast (9 am)</span>
+                                <input id="chk-breakfast" type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                <span class="text-[11px] font-medium text-gray-700 ml-2">Breakfast <span id="time-breakfast">(9 am)</span></span>
                             </div>
-                            <svg class="w-3.5 h-3.5 text-gray-400 hover:text-teal-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <button type="button" onclick="editTime('time-breakfast', event)" class="text-gray-400 hover:text-teal-primary ml-1 z-10"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                         </label>
                         <label class="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-teal-primary transition">
                             <div class="flex items-center">
-                                <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
-                                <span class="text-[11px] font-medium text-gray-700 ml-2">Lunch (1 pm)</span>
+                                <input id="chk-lunch" type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                <span class="text-[11px] font-medium text-gray-700 ml-2">Lunch <span id="time-lunch">(1 pm)</span></span>
                             </div>
-                            <svg class="w-3.5 h-3.5 text-gray-400 hover:text-teal-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <button type="button" onclick="editTime('time-lunch', event)" class="text-gray-400 hover:text-teal-primary ml-1 z-10"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                         </label>
                         <label class="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-teal-primary transition">
                             <div class="flex items-center">
-                                <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
-                                <span class="text-[11px] font-medium text-gray-700 ml-2">Snacks (5 pm)</span>
+                                <input id="chk-snacks" type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                <span class="text-[11px] font-medium text-gray-700 ml-2">Snacks <span id="time-snacks">(5 pm)</span></span>
                             </div>
-                            <svg class="w-3.5 h-3.5 text-gray-400 hover:text-teal-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <button type="button" onclick="editTime('time-snacks', event)" class="text-gray-400 hover:text-teal-primary ml-1 z-10"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                         </label>
                         <label class="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-teal-primary transition">
                             <div class="flex items-center">
-                                <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
-                                <span class="text-[11px] font-medium text-gray-700 ml-2">Dinner (9 pm)</span>
+                                <input id="chk-dinner" type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                <span class="text-[11px] font-medium text-gray-700 ml-2">Dinner <span id="time-dinner">(9 pm)</span></span>
                             </div>
-                            <svg class="w-3.5 h-3.5 text-gray-400 hover:text-teal-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <button type="button" onclick="editTime('time-dinner', event)" class="text-gray-400 hover:text-teal-primary ml-1 z-10"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                         </label>
                     </div>
                 </div>
@@ -655,11 +625,11 @@
                     <div class="flex-1">
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Dosage</label>
                         <div class="relative">
-                            <select class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 appearance-none focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary bg-white cursor-pointer">
-                                <option>1 tablet</option>
-                                <option>2 tablets</option>
-                                <option>0.5 tablet</option>
-                                <option>1 spoon</option>
+                            <select id="input-med-dosage" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 appearance-none focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary bg-white cursor-pointer">
+                                <option value="1 tablet">1 tablet</option>
+                                <option value="2 tablets">2 tablets</option>
+                                <option value="0.5 tablet">0.5 tablet</option>
+                                <option value="1 spoon">1 spoon</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -667,12 +637,12 @@
                         </div>
                     </div>
                     <div class="flex-1">
-                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Total / Balance Tablets</label>
-                        <input type="number" value="30" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Total / Balance</label>
+                        <input id="input-med-balance" type="number" placeholder="e.g. 30" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
                     </div>
                 </div>
             </div>
-            <button class="w-full bg-teal-primary text-white font-semibold py-3.5 rounded-xl text-base hover:bg-teal-700 transition" onclick="closeAddMedModal()">Save Medicine</button>
+            <button class="w-full bg-teal-primary text-white font-semibold py-3.5 rounded-xl text-base hover:bg-teal-700 transition" onclick="saveMedicine()">Save Medicine</button>
         </div>
     </div>
 
@@ -687,9 +657,10 @@
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Select Member</label>
                     <div class="relative">
-                        <select class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 appearance-none focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary bg-white cursor-pointer">
+                        <select id="input-role-member" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 appearance-none focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary bg-white cursor-pointer">
                             <option>Dr. Sarah (You)</option>
                             <option>Robert Doe (Father)</option>
+                            <option>Priya Doe (Sister)</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -699,7 +670,7 @@
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Select Role</label>
                     <div class="relative">
-                        <select class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 appearance-none focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary bg-white cursor-pointer">
+                        <select id="input-role-type" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 appearance-none focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary bg-white cursor-pointer">
                             <option>Primary Caregiver</option>
                             <option>Medicine Dispenser</option>
                             <option>Emergency Contact</option>
@@ -713,17 +684,25 @@
                 </div>
                 
                 <label class="flex items-start space-x-2 pt-2 cursor-pointer">
-                    <input type="checkbox" checked class="w-4 h-4 mt-0.5 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                    <input id="input-role-notify" type="checkbox" checked class="w-4 h-4 mt-0.5 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
                     <span class="text-sm font-medium text-gray-700">Notify them to refill medicines when running low</span>
                 </label>
             </div>
-            <button class="w-full bg-teal-primary text-white font-semibold py-3.5 rounded-xl text-base hover:bg-teal-700 transition" onclick="closeAddRoleModal()">Save Role</button>
+            <button class="w-full bg-teal-primary text-white font-semibold py-3.5 rounded-xl text-base hover:bg-teal-700 transition" onclick="saveRole()">Save Role</button>
         </div>
     </div>
 
 </div>
 
 <script>
+    // General Functions
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active');
+        });
+        document.getElementById(screenId).classList.add('active');
+    }
+
     function copyToClipboard() {
         const toast = document.getElementById('toast-message');
         toast.classList.remove('hidden');
@@ -734,6 +713,11 @@
         }, 2500);
     }
 
+    function deleteCard(buttonElement) {
+        buttonElement.closest('.removable-card').remove();
+    }
+
+    // --- Member Modal Logic ---
     function openModal() {
         const modal = document.getElementById('modal-add-member');
         modal.classList.remove('hidden');
@@ -744,30 +728,6 @@
         modal.classList.add('hidden');
         modal.classList.remove('flex');
         document.getElementById('new-member-name').value = ''; 
-    }
-
-    // Modal logic for Add Medicine
-    function openAddMedModal() {
-        const modal = document.getElementById('modal-add-medicine');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-    function closeAddMedModal() {
-        const modal = document.getElementById('modal-add-medicine');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
-
-    // Modal logic for Add Role
-    function openAddRoleModal() {
-        const modal = document.getElementById('modal-add-role');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-    function closeAddRoleModal() {
-        const modal = document.getElementById('modal-add-role');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
     }
 
     let memberCount = 1;
@@ -797,11 +757,113 @@
         closeModal();
     }
 
-    function showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
+
+    // --- Medicine Logic ---
+    function openAddMedModal() {
+        const modal = document.getElementById('modal-add-medicine');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function closeAddMedModal() {
+        const modal = document.getElementById('modal-add-medicine');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.getElementById('input-med-name').value = '';
+        document.getElementById('input-med-balance').value = '';
+    }
+    function editTime(id, event) {
+        event.preventDefault(); 
+        event.stopPropagation();
+        const label = document.getElementById(id);
+        const currentTime = label.innerText.replace(/[()]/g, '').trim();
+        const newTime = prompt("Enter new time:", currentTime);
+        if (newTime !== null && newTime.trim() !== '') {
+            label.innerText = `(${newTime.trim()})`;
+        }
+    }
+    function saveMedicine() {
+        const name = document.getElementById('input-med-name').value || 'New Medicine';
+        const dosage = document.getElementById('input-med-dosage').value || '1 tablet';
+        const balance = document.getElementById('input-med-balance').value || '30';
+
+        let timingsHTML = '';
+        const timings = [
+            { id: 'chk-breakfast', label: 'Breakfast' },
+            { id: 'chk-lunch', label: 'Lunch' },
+            { id: 'chk-snacks', label: 'Snacks' },
+            { id: 'chk-dinner', label: 'Dinner' }
+        ];
+
+        timings.forEach(t => {
+            if (document.getElementById(t.id).checked) {
+                timingsHTML += `<span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-md mb-2 mr-2">${t.label}</span>`;
+            }
         });
-        document.getElementById(screenId).classList.add('active');
+
+        if (timingsHTML === '') {
+            timingsHTML = `<span class="bg-gray-50 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md mb-2 mr-2">As needed</span>`;
+        }
+
+        const medCardHTML = `
+        <div class="removable-card border border-gray-100 rounded-2xl p-4 shadow-sm relative mb-4">
+            <div class="absolute top-4 right-4 flex space-x-3 text-gray-400">
+                <button onclick="openAddMedModal()" class="hover:text-teal-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                <button onclick="deleteCard(this)" class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+            </div>
+            <h4 class="font-bold text-gray-900 text-[15px]">${name}</h4>
+            <p class="text-gray-500 text-[12px] mt-0.5 mb-2">Dosage: ${dosage}</p>
+            <div class="flex flex-wrap mb-2 mt-3">
+                ${timingsHTML}
+            </div>
+            <div class="flex justify-between items-center pt-3 border-t border-gray-50 mt-1">
+                <p class="text-gray-500 text-[12px]">Balance Tablets: <span class="font-bold text-gray-900">${balance} / ${balance}</span></p>
+                <div class="flex items-center text-teal-primary text-[11px] font-bold">
+                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+                    Reminder On
+                </div>
+            </div>
+        </div>`;
+        
+        document.getElementById('medicines-list').insertAdjacentHTML('beforeend', medCardHTML);
+        closeAddMedModal();
+    }
+
+
+    // --- Role Logic ---
+    function openAddRoleModal() {
+        const modal = document.getElementById('modal-add-role');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function closeAddRoleModal() {
+        const modal = document.getElementById('modal-add-role');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+    function saveRole() {
+        const member = document.getElementById('input-role-member').value || 'Member';
+        const role = document.getElementById('input-role-type').value || 'Caregiver';
+        const isNotified = document.getElementById('input-role-notify').checked;
+        const notifyText = isNotified ? 'Enabled' : 'Disabled';
+        const notifyColor = isNotified ? 'text-teal-primary' : 'text-gray-400';
+
+        const roleCardHTML = `
+        <div class="removable-card border border-gray-100 rounded-2xl p-4 shadow-sm relative mb-4">
+            <div class="absolute top-4 right-4 flex space-x-3 text-gray-400">
+                <button onclick="openAddRoleModal()" class="hover:text-teal-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                <button onclick="deleteCard(this)" class="hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+            </div>
+            <h4 class="font-bold text-gray-900 text-[15px] mb-1">${member}</h4>
+            <span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-md mb-4 inline-block">${role}</span>
+            
+            <div class="flex justify-between items-center pt-3 border-t border-gray-50">
+                <p class="text-gray-500 text-[12px]">Refill Notifications:</p>
+                <span class="font-bold ${notifyColor} text-[12px]">${notifyText}</span>
+            </div>
+        </div>`;
+
+        document.getElementById('roles-list').insertAdjacentHTML('beforeend', roleCardHTML);
+        closeAddRoleModal();
     }
 </script>
 
