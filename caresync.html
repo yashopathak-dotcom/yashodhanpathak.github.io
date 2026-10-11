@@ -39,7 +39,7 @@
 <div class="mobile-container">
     <!-- Toast Notification -->
     <div id="toast-message" class="absolute top-10 left-1/2 transform -translate-x-1/2 bg-teal-primary text-white text-sm font-medium px-6 py-4 rounded-xl shadow-2xl z-[60] hidden opacity-0 transition-opacity duration-300 text-center w-[80%] pointer-events-none">
-        Invite link copied to clipboard.
+        <span id="toast-text">Invite link copied to clipboard.</span>
     </div>
 
     <!-- Screen 1: Onboarding 1 -->
@@ -201,7 +201,7 @@
                 <p class="text-[10px] font-bold text-teal-800/70 uppercase mb-1 tracking-wide">Invite Family Code</p>
                 <p class="text-xl font-bold text-teal-900 tracking-wide">FAM-2212</p>
             </div>
-           <button onclick="copyToClipboard()" class="bg-teal-primary text-white text-xs font-semibold px-4 py-2.5 rounded-xl flex items-center shadow-sm hover:bg-teal-700 transition">
+           <button onclick="showToast('Invite link copied to clipboard.')" class="bg-teal-primary text-white text-xs font-semibold px-4 py-2.5 rounded-xl flex items-center shadow-sm hover:bg-teal-700 transition">
                 <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-5.368m0 5.368l5.662 3.397a2.5 2.5 0 10.828-1.414l-5.662-3.397a2.5 2.5 0 10-.828 1.414z"></path></svg>
                 Share Link
             </button>
@@ -217,7 +217,6 @@
         
         <!-- Member List Container -->
         <div id="members-container" class="space-y-3 mb-4">
-            <!-- Primary Admin / You -->
             <div class="border border-gray-100 rounded-2xl p-4 flex items-center bg-white shadow-sm">
                 <div class="w-10 h-10 rounded-full bg-teal-primary text-white flex items-center justify-center font-bold mr-3 shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
@@ -233,7 +232,7 @@
                     Active
                 </div>
             </div>
-        </div> <!-- End of Member List Container -->
+        </div>
         
         <div class="flex-1"></div>
         
@@ -248,7 +247,6 @@
         <!-- Add Member Modal -->
         <div id="modal-add-member" class="absolute inset-0 bg-gray-900/40 hidden flex-col justify-center px-4 z-50 backdrop-blur-[1px]">
             <div class="bg-white rounded-[24px] p-6 shadow-2xl relative w-full">
-              <!-- Close Button -->
                 <button class="absolute top-5 right-5 text-gray-400 hover:text-gray-600" onclick="closeModal()">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -256,19 +254,14 @@
                 <h3 class="text-lg font-bold text-gray-900 mb-6">Add Family Member</h3>
                 
                 <div class="space-y-4 mb-6">
-                    <!-- Name Input -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Member Name</label>
                         <input id="new-member-name" type="text" placeholder="e.g. Priya Doe (Sister)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary placeholder-gray-300">
                     </div>
-                    
-                    <!-- Contact Input -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Email or Mobile</label>
                         <input type="text" placeholder="email@example.com or mobile" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary placeholder-gray-300">
                     </div>
-                    
-                    <!-- Role Select -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Role In Care Group</label>
                         <div class="relative">
@@ -294,7 +287,6 @@
 
     <!-- Screen 8.1: Create Space -->
     <div id="screen-create-space" class="screen relative overflow-y-auto" style="padding-bottom: 24px;">
-        <!-- Header -->
         <div class="pt-2 mb-6">
             <button class="text-gray-400 font-medium text-sm flex items-center hover:text-gray-600 transition" onclick="showScreen('screen-care-team')">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
@@ -309,25 +301,18 @@
         </div>
         
         <div class="space-y-4 mb-6">
-            <!-- Space Name -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Space Name</label>
                 <input type="text" value="Dad's Care Space" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
             </div>
-            
-            <!-- Patient Name -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Name</label>
                 <input type="text" value="Robert Doe (Father)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
             </div>
-            
-            <!-- Patient Condition / Notes -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Condition / Notes</label>
                 <textarea rows="2" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary resize-none">Type 2 Diabetes, Hypertension. Daily BP and Blood Sugar monitoring.</textarea>
             </div>
-
-            <!-- Daily Checkup Metrics -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2 mt-2">Daily Vitals To Track</label>
                 <div class="grid grid-cols-2 gap-3">
@@ -352,19 +337,193 @@
         </div>
         
         <div class="mt-auto pt-2">
-            <button class="w-full bg-teal-primary text-white font-semibold py-4 rounded-xl text-base hover:bg-teal-700 transition shadow-md shadow-teal-500/20">
+            <!-- UPDATED: Now redirects to the new Dashboard screen -->
+            <button onclick="showScreen('screen-dashboard')" class="w-full bg-teal-primary text-white font-semibold py-4 rounded-xl text-base hover:bg-teal-700 transition shadow-md shadow-teal-500/20">
                 Create Space & Continue
             </button>
         </div>
     </div>
 
+    <!-- Screen 9: Main Dashboard -->
+    <div id="screen-dashboard" class="screen !p-0 bg-[#0B162C] relative overflow-hidden">
+        
+        <!-- Dark Navy Background Top Header -->
+        <div class="px-6 pt-10 pb-16">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-teal-primary rounded-2xl flex items-center justify-center mr-4 shadow-lg shadow-teal-900/50 text-white">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm-1 11H8v-2h3V9h2v3h3v2h-3v3h-2v-3z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Dad's Care Space</h2>
+                        <p class="text-teal-200/70 text-xs">Patient: Robert Doe (Father)</p>
+                    </div>
+                </div>
+                <button class="bg-teal-900/50 border border-teal-700/50 text-teal-400 text-xs font-semibold px-3 py-1.5 rounded-full flex items-center hover:bg-teal-800 transition">
+                    + Create Space
+                </button>
+            </div>
+        </div>
+
+        <!-- White Dashboard Content Area -->
+        <div class="bg-white rounded-t-[32px] w-full h-full p-6 pt-8 overflow-y-auto pb-24 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] absolute top-28 bottom-0">
+            
+            <!-- 4 Grid Cards -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <!-- Medicines -->
+                <div class="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex flex-col justify-center">
+                    <div class="w-10 h-10 rounded-full bg-teal-50 text-teal-primary flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.333 4.667a4.714 4.714 0 00-6.666 0L4.667 12.667a4.714 4.714 0 006.666 6.666l8-8a4.714 4.714 0 000-6.666zM9.333 14.667l5.334-5.334"></path></svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-900">Medicines</h3>
+                    <p class="text-[11px] text-gray-400 mt-0.5">2 Active meds & stock</p>
+                </div>
+                <!-- Roles & Checks -->
+                <div class="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex flex-col justify-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-900">Roles & Checks</h3>
+                    <p class="text-[11px] text-gray-400 mt-0.5">1 Team roles assigned</p>
+                </div>
+                <!-- Vitals Checklist -->
+                <div class="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex flex-col justify-center">
+                    <div class="w-10 h-10 rounded-full bg-purple-50 text-purple-500 flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-900">Vitals Checklist</h3>
+                    <p class="text-[11px] text-gray-400 mt-0.5">BP, Sugar, Weight schedules</p>
+                </div>
+                <!-- Vault & Reports (With Coming Soon Tag) -->
+                <div onclick="showToast('Coming soon')" class="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex flex-col justify-center relative cursor-pointer hover:bg-gray-50 transition overflow-hidden group">
+                    <!-- Coming Soon Tag -->
+                    <span class="absolute top-3 right-3 bg-yellow-100 text-yellow-700 text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">Coming soon</span>
+                    
+                    <div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center mb-3 group-hover:scale-105 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-9 1V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-6"></path></svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-900">Vault & Reports</h3>
+                    <p class="text-[11px] text-gray-400 mt-0.5">Emergency ready files</p>
+                </div>
+            </div>
+
+            <!-- Medicine Schedule -->
+            <div class="border border-gray-100 rounded-3xl p-5 shadow-sm mb-6 bg-white">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-gray-900 text-sm">Today's Medicine Schedule</h3>
+                    <span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2 py-1 rounded-md">Active Space</span>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="bg-gray-50 rounded-2xl p-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-primary flex items-center justify-center mr-3 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.333 4.667a4.714 4.714 0 00-6.666 0L4.667 12.667a4.714 4.714 0 006.666 6.666l8-8a4.714 4.714 0 000-6.666zM9.333 14.667l5.334-5.334"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Metformin 500mg</h4>
+                                <p class="text-[11px] text-gray-500">1 tablet • 08:00 AM, 08:00 PM</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-teal-700 bg-teal-100 px-2 py-1 rounded">Stock: 24/30</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-2xl p-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-primary flex items-center justify-center mr-3 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.333 4.667a4.714 4.714 0 00-6.666 0L4.667 12.667a4.714 4.714 0 006.666 6.666l8-8a4.714 4.714 0 000-6.666zM9.333 14.667l5.334-5.334"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Amlodipine 5mg</h4>
+                                <p class="text-[11px] text-gray-500">1 tablet • 08:00 AM</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-red-700 bg-red-100 px-2 py-1 rounded">Stock: 12/30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Health Routine Checklists (Updated with AM/PM & Inputs) -->
+            <div class="border border-gray-100 rounded-3xl p-5 shadow-sm bg-white">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-teal-primary mr-1.5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <h3 class="font-bold text-gray-900 text-sm">Daily Health Routine Checklists</h3>
+                    </div>
+                    <button class="text-teal-primary text-[11px] font-bold hover:underline">Configure</button>
+                </div>
+                <p class="text-[11px] text-gray-500 mb-4">Important daily vitals & timings assigned to caregivers.</p>
+
+                <!-- AM Checkbox Group -->
+                <div class="mb-5">
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Morning (AM)</h4>
+                    <div class="space-y-2">
+                        <!-- Blood Pressure AM -->
+                        <div class="bg-gray-50 rounded-2xl p-3 flex flex-col justify-center">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="flex items-center space-x-3 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                    <span class="text-sm font-bold text-gray-700">Blood Pressure (BP)</span>
+                                </label>
+                                <span class="text-[11px] font-bold text-teal-primary bg-teal-50 px-2 py-0.5 rounded">08:00 AM</span>
+                            </div>
+                            <!-- Blank space for writing text/numbers -->
+                            <div class="ml-7 flex items-center">
+                                <input type="text" placeholder="Enter reading (e.g. 120/80)" class="text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+                            </div>
+                        </div>
+
+                        <!-- Blood Sugar AM -->
+                        <div class="bg-gray-50 rounded-2xl p-3 flex flex-col justify-center">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="flex items-center space-x-3 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                    <span class="text-sm font-bold text-gray-700">Blood Sugar (Glucose)</span>
+                                </label>
+                                <span class="text-[11px] font-bold text-teal-primary bg-teal-50 px-2 py-0.5 rounded">07:30 AM</span>
+                            </div>
+                            <div class="ml-7 flex items-center">
+                                <input type="text" placeholder="Enter reading (e.g. 98 mg/dL)" class="text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PM Checkbox Group -->
+                <div>
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Evening (PM)</h4>
+                    <div class="space-y-2">
+                        <!-- Blood Pressure PM -->
+                        <div class="bg-gray-50 rounded-2xl p-3 flex flex-col justify-center">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="flex items-center space-x-3 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                                    <span class="text-sm font-bold text-gray-700">Blood Pressure (BP)</span>
+                                </label>
+                                <span class="text-[11px] font-bold text-teal-primary bg-teal-50 px-2 py-0.5 rounded">08:00 PM</span>
+                            </div>
+                            <div class="ml-7 flex items-center">
+                                <input type="text" placeholder="Enter reading (e.g. 125/82)" class="text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <script>
-    // Toast Notification logic
-    function copyToClipboard() {
+    // Updated Toast Notification logic to accept custom messages
+    function showToast(message) {
         const toast = document.getElementById('toast-message');
+        const toastText = document.getElementById('toast-text');
+        
+        toastText.innerText = message;
         toast.classList.remove('hidden');
+        
         setTimeout(() => toast.classList.remove('opacity-0'), 10); // Fade in
         setTimeout(() => {
             toast.classList.add('opacity-0'); // Fade out
@@ -372,18 +531,18 @@
         }, 2500);
     }
 
-    // Modal logic (Fixes alignment issue by using flex correctly)
+    // Modal logic 
     function openModal() {
         const modal = document.getElementById('modal-add-member');
         modal.classList.remove('hidden');
-        modal.classList.add('flex'); // This forces it to center properly
+        modal.classList.add('flex'); 
     }
 
     function closeModal() {
         const modal = document.getElementById('modal-add-member');
         modal.classList.add('hidden');
         modal.classList.remove('flex');
-        document.getElementById('new-member-name').value = ''; // Reset input
+        document.getElementById('new-member-name').value = ''; 
     }
 
     // Dynamic Member addition logic
@@ -412,7 +571,6 @@
         </div>
         `;
 
-        // Append to list and close modal
         document.getElementById('members-container').insertAdjacentHTML('beforeend', newMemberHTML);
         closeModal();
     }
