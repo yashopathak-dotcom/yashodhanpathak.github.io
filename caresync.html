@@ -9,18 +9,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #e5e7eb; 
+            background-color: #0f172a; /* Match the dark background of the mockup presentation */
         }
         .mobile-container {
             width: 100%;
             max-width: 390px; 
             height: 844px;    
             margin: 2rem auto;
-            background-color: white;
+            background-color: #ffffff;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             border-radius: 48px; 
-            border: 14px solid #111827; 
+            border: 14px solid #1e293b; 
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -33,7 +33,7 @@
         .text-teal-primary { color: #118b79; }
         .border-teal-primary { border-color: #118b79; }
 
-        /* Custom scrollbar for inner containers */
+        /* Hide scrollbar for clean UI */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -237,7 +237,7 @@
                     Active
                 </div>
             </div>
-        </div> 
+        </div> <!-- End of Member List Container -->
         
         <div class="flex-1"></div>
         
@@ -252,6 +252,7 @@
         <!-- Add Member Modal -->
         <div id="modal-add-member" class="absolute inset-0 bg-gray-900/40 hidden flex-col justify-center px-4 z-50 backdrop-blur-[1px]">
             <div class="bg-white rounded-[24px] p-6 shadow-2xl relative w-full">
+              <!-- Close Button -->
                 <button class="absolute top-5 right-5 text-gray-400 hover:text-gray-600" onclick="closeModal()">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -259,14 +260,19 @@
                 <h3 class="text-lg font-bold text-gray-900 mb-6">Add Family Member</h3>
                 
                 <div class="space-y-4 mb-6">
+                    <!-- Name Input -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Member Name</label>
                         <input id="new-member-name" type="text" placeholder="e.g. Priya Doe (Sister)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary placeholder-gray-300">
                     </div>
+                    
+                    <!-- Contact Input -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Email or Mobile</label>
                         <input type="text" placeholder="email@example.com or mobile" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary placeholder-gray-300">
                     </div>
+                    
+                    <!-- Role Select -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Role In Care Group</label>
                         <div class="relative">
@@ -290,7 +296,7 @@
         </div>
     </div>
 
-    <!-- Screen 7: Create Space -->
+    <!-- Screen 8.1: Create Space -->
     <div id="screen-create-space" class="screen relative overflow-y-auto" style="padding-bottom: 24px;">
         <!-- Header -->
         <div class="pt-2 mb-6">
@@ -307,18 +313,25 @@
         </div>
         
         <div class="space-y-4 mb-6">
+            <!-- Space Name -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Space Name</label>
                 <input type="text" value="Dad's Care Space" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
             </div>
+            
+            <!-- Patient Name -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Name</label>
                 <input type="text" value="Robert Doe (Father)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
             </div>
+            
+            <!-- Patient Condition / Notes -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Condition / Notes</label>
                 <textarea rows="2" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary resize-none">Type 2 Diabetes, Hypertension. Daily BP and Blood Sugar monitoring.</textarea>
             </div>
+
+            <!-- Daily Checkup Metrics -->
             <div>
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2 mt-2">Daily Vitals To Track</label>
                 <div class="grid grid-cols-2 gap-3">
@@ -343,158 +356,145 @@
         </div>
         
         <div class="mt-auto pt-2">
-            <!-- Navigating to the New Dashboard Screen -->
+            <!-- Route directly to Dashboard (Screen 9) -->
             <button onclick="showScreen('screen-dashboard')" class="w-full bg-teal-primary text-white font-semibold py-4 rounded-xl text-base hover:bg-teal-700 transition shadow-md shadow-teal-500/20">
                 Create Space & Continue
             </button>
         </div>
     </div>
 
-    <!-- Screen 9: Dashboard (Main Care Space) with Bottom Nav -->
-    <div id="screen-dashboard" class="screen relative bg-[#172030] p-0 overflow-hidden">
-        <!-- Top Dark Padding Area -->
-        <div class="h-10 w-full shrink-0"></div>
-        
-        <!-- White Rounded Main Container -->
-        <div class="bg-white rounded-t-[36px] flex-1 flex flex-col w-full h-full shadow-2xl relative z-10 p-5 pb-24 overflow-y-auto hide-scrollbar">
+    <!-- Screen 9: Dashboard (Main Interface) -->
+    <div id="screen-dashboard" class="screen bg-white p-0 relative h-full w-full">
+        <!-- Scrollable Content Area -->
+        <div class="w-full h-full flex flex-col relative pb-[90px] overflow-y-auto hide-scrollbar">
             
-            <!-- Header -->
-            <div class="flex items-center justify-between mb-6">
+            <!-- Header Section -->
+            <div class="flex items-center justify-between px-5 pt-8 pb-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-teal-primary rounded-2xl flex items-center justify-center shadow-md">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    <div class="w-[46px] h-[46px] bg-teal-primary rounded-[18px] flex items-center justify-center text-white shadow-[0_4px_12px_rgba(17,139,121,0.25)]">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L4 9v12h5v-7h6v7h5V9l-8-6z"/>
                         </svg>
                     </div>
                     <div>
                         <h2 class="text-[17px] font-bold text-gray-900 leading-tight">Dad's Care Space</h2>
-                        <p class="text-gray-500 text-xs">Patient: Robert Doe (Father)</p>
+                        <p class="text-[#8892a0] text-[11px] font-medium mt-0.5">Patient: Robert Doe (Father)</p>
                     </div>
                 </div>
-                <button class="bg-teal-50 text-teal-primary text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center tracking-wide">
-                    <span class="mr-1 text-sm">+</span> Create Space
+                <button class="text-teal-primary text-[11px] font-bold flex items-center bg-[#f0fbfa] px-3 py-1.5 rounded-full hover:bg-teal-100 transition duration-200">
+                    + Create Space
                 </button>
             </div>
 
-            <!-- 4 Grid Cards -->
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <!-- Card 1 -->
-                <div class="border border-gray-100 rounded-2xl p-4 shadow-sm hover:border-teal-primary transition cursor-pointer">
-                    <div class="w-9 h-9 bg-teal-50 rounded-xl flex items-center justify-center mb-3">
-                        <svg class="w-4 h-4 text-teal-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5h-1a3 3 0 00-2.83 2H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM5 15V9h8.22a5 5 0 010 6H5zm14 0h-3.22c.28-.9.28-1.9 0-2.8H19v2.8zm0-4.8h-2.14a4.98 4.98 0 00-1.86-1.86V7h4v3.2z"/></svg>
+            <!-- Top Grid Cards -->
+            <div class="px-5 pt-2 grid grid-cols-2 gap-3.5">
+                
+                <!-- Card 1: Medicines -->
+                <div class="group bg-white border border-[#f1f3f5] rounded-2xl p-[18px] shadow-[0_4px_12px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] hover:border-teal-primary/30 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between">
+                    <div class="w-[38px] h-[38px] bg-[#e6f7f5] rounded-xl flex items-center justify-center mb-3.5 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-5 h-5 text-teal-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5h-1a3 3 0 00-2.83 2H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM5 15V9h8.22a5 5 0 010 6H5zm14 0h-3.22c.28-.9.28-1.9 0-2.8H19v2.8zm0-4.8h-2.14a4.98 4.98 0 00-1.86-1.86V7h4v3.2z"/></svg>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-0.5">Medicines</h3>
-                    <p class="text-gray-400 text-[10px]">2 Active meds & stock</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="border border-gray-100 rounded-2xl p-4 shadow-sm hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center mb-3">
-                        <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <div>
+                        <h3 class="font-bold text-[#1e293b] text-[13px] leading-tight mb-1">Medicines</h3>
+                        <p class="text-[#8892a0] text-[10px] font-medium">2 Active meds & stock</p>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-0.5">Roles & Checks</h3>
-                    <p class="text-gray-400 text-[10px]">1 Team roles assigned</p>
                 </div>
-                <!-- Card 3 -->
-                <div class="border border-gray-100 rounded-2xl p-4 shadow-sm hover:border-purple-500 transition cursor-pointer">
-                    <div class="w-9 h-9 bg-purple-50 rounded-xl flex items-center justify-center mb-3">
-                        <svg class="w-4 h-4 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+
+                <!-- Card 2: Roles & Checks -->
+                <div class="group bg-white border border-[#f1f3f5] rounded-2xl p-[18px] shadow-[0_4px_12px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] hover:border-[#6366f1]/30 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between">
+                    <div class="w-[38px] h-[38px] bg-[#eef2ff] rounded-xl flex items-center justify-center mb-3.5 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-5 h-5 text-[#6366f1]" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-0.5">Vitals Checklist</h3>
-                    <p class="text-gray-400 text-[10px]">BP, Sugar, Weight schedules</p>
-                </div>
-                <!-- Card 4 -->
-                <div class="border border-gray-100 rounded-2xl p-4 shadow-sm hover:border-red-500 transition cursor-pointer">
-                    <div class="w-9 h-9 bg-red-50 rounded-xl flex items-center justify-center mb-3">
-                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/></svg>
+                    <div>
+                        <h3 class="font-bold text-[#1e293b] text-[13px] leading-tight mb-1">Roles & Checks</h3>
+                        <p class="text-[#8892a0] text-[10px] font-medium">1 Team roles assigned</p>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-0.5">Vault & Reports</h3>
-                    <p class="text-gray-400 text-[10px]">Emergency ready files</p>
                 </div>
+
+                <!-- Card 3: Vitals Checklist -->
+                <div class="group bg-white border border-[#f1f3f5] rounded-2xl p-[18px] shadow-[0_4px_12px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] hover:border-[#a855f7]/30 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between">
+                    <div class="w-[38px] h-[38px] bg-[#faf5ff] rounded-xl flex items-center justify-center mb-3.5 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-5 h-5 text-[#a855f7]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-[#1e293b] text-[13px] leading-tight mb-1">Vitals Checklist</h3>
+                        <p class="text-[#8892a0] text-[10px] font-medium">BP, Sugar, Weight schedules</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Vault & Reports (With Tag) -->
+                <div class="relative overflow-hidden group bg-white border border-[#f1f3f5] rounded-2xl p-[18px] shadow-[0_4px_12px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] hover:border-[#ef4444]/30 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between">
+                    <!-- Premium "Coming Soon" Tag -->
+                    <div class="absolute top-0 right-0 bg-[#fff1f2] border-b border-l border-[#ffe4e6] text-[#e11d48] text-[9px] font-bold px-2 py-1 rounded-bl-xl shadow-sm z-10">Coming Soon</div>
+                    
+                    <div class="w-[38px] h-[38px] bg-[#fef2f2] rounded-xl flex items-center justify-center mb-3.5 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-5 h-5 text-[#ef4444]" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-[#1e293b] text-[13px] leading-tight mb-1">Vault & Reports</h3>
+                        <p class="text-[#8892a0] text-[10px] font-medium">Emergency ready files</p>
+                    </div>
+                </div>
+                
             </div>
 
-            <!-- Medicine Schedule Container -->
-            <div class="border border-gray-100 rounded-3xl p-5 mb-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] bg-white">
-                <div class="flex justify-between items-center mb-5">
-                    <h3 class="font-bold text-gray-900 text-[15px]">Today's Medicine Schedule</h3>
-                    <span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-full">Active Space</span>
+            <!-- Medicine Schedule Section -->
+            <div class="px-5 mt-8">
+                <div class="flex justify-between items-center mb-4 px-1">
+                    <h3 class="font-bold text-gray-900 text-[14px]">Today's Medicine Schedule</h3>
+                    <span class="bg-[#f0fbfa] text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-full">Active Space</span>
                 </div>
+                
                 <div class="space-y-3">
-                    <!-- Med 1 -->
-                    <div class="flex items-center bg-gray-50/70 p-3.5 rounded-2xl">
-                        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center mr-3.5 shrink-0">
+                    <!-- Med Item 1 -->
+                    <div class="group bg-[#f8fafc] border border-transparent hover:border-[#e2e8f0] rounded-2xl p-[14px] flex items-center transition-all duration-300 hover:shadow-[0_4px_12px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 cursor-pointer">
+                        <div class="w-10 h-10 bg-[#e6f7f5] rounded-full flex items-center justify-center mr-3.5 shrink-0 group-hover:scale-105 transition-transform">
                             <svg class="w-5 h-5 text-teal-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5h-1a3 3 0 00-2.83 2H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM5 15V9h8.22a5 5 0 010 6H5zm14 0h-3.22c.28-.9.28-1.9 0-2.8H19v2.8zm0-4.8h-2.14a4.98 4.98 0 00-1.86-1.86V7h4v3.2z"/></svg>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-[13px] mb-0.5">Metformin 500mg</h4>
-                            <p class="text-gray-500 text-[11px]">1 tablet • 08:00 AM, 08:00 PM</p>
+                            <h4 class="font-bold text-[#1e293b] text-[13px] mb-0.5">Metformin 500mg</h4>
+                            <p class="text-[#8892a0] text-[11px] font-medium">1 tablet • 08:00 AM, 08:00 PM</p>
                         </div>
-                        <div class="bg-teal-50/80 text-teal-primary text-[11px] font-bold px-2.5 py-1.5 rounded-lg border border-teal-100/50">Stock: 24/30</div>
+                        <div class="bg-[#dcfce7] text-[#166534] text-[10px] font-bold px-2.5 py-1.5 rounded-lg ml-2 whitespace-nowrap group-hover:shadow-sm transition-all">Stock: 24/30</div>
                     </div>
-                    <!-- Med 2 -->
-                    <div class="flex items-center bg-gray-50/70 p-3.5 rounded-2xl">
-                        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center mr-3.5 shrink-0">
-                             <svg class="w-5 h-5 text-teal-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5h-1a3 3 0 00-2.83 2H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM5 15V9h8.22a5 5 0 010 6H5zm14 0h-3.22c.28-.9.28-1.9 0-2.8H19v2.8zm0-4.8h-2.14a4.98 4.98 0 00-1.86-1.86V7h4v3.2z"/></svg>
+                    
+                    <!-- Med Item 2 -->
+                    <div class="group bg-[#f8fafc] border border-transparent hover:border-[#e2e8f0] rounded-2xl p-[14px] flex items-center transition-all duration-300 hover:shadow-[0_4px_12px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 cursor-pointer">
+                        <div class="w-10 h-10 bg-[#e6f7f5] rounded-full flex items-center justify-center mr-3.5 shrink-0 group-hover:scale-105 transition-transform">
+                            <svg class="w-5 h-5 text-teal-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5h-1a3 3 0 00-2.83 2H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM5 15V9h8.22a5 5 0 010 6H5zm14 0h-3.22c.28-.9.28-1.9 0-2.8H19v2.8zm0-4.8h-2.14a4.98 4.98 0 00-1.86-1.86V7h4v3.2z"/></svg>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-[13px] mb-0.5">Amlodipine 5mg</h4>
-                            <p class="text-gray-500 text-[11px]">1 tablet • 08:00 AM</p>
+                            <h4 class="font-bold text-[#1e293b] text-[13px] mb-0.5">Amlodipine 5mg</h4>
+                            <p class="text-[#8892a0] text-[11px] font-medium">1 tablet • 08:00 AM</p>
                         </div>
-                        <div class="bg-red-50 text-red-500 text-[11px] font-bold px-2.5 py-1.5 rounded-lg border border-red-100/50">Stock: 12/30</div>
+                        <div class="bg-[#fee2e2] text-[#b91c1c] text-[10px] font-bold px-2.5 py-1.5 rounded-lg ml-2 whitespace-nowrap group-hover:shadow-sm transition-all">Stock: 12/30</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Checklists -->
-            <div class="border border-gray-100 rounded-3xl p-5 mb-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] bg-white">
-                 <div class="flex justify-between items-center mb-1">
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 text-teal-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <h3 class="font-bold text-gray-900 text-[15px]">Daily Health Routine Checklists</h3>
-                    </div>
-                    <a href="#" class="text-teal-primary text-[11px] font-bold">Configure</a>
-                </div>
-                <p class="text-gray-400 text-[11px] mb-4 ml-6">Important daily vitals & timings assigned to caregivers.</p>
-                
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center bg-gray-50/70 p-3.5 rounded-2xl border border-gray-100/50">
-                        <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
-                            <span class="text-[13px] font-bold text-gray-700">Blood Pressure (BP)</span>
-                        </label>
-                        <span class="text-teal-primary text-[11px] font-bold bg-teal-50 px-2.5 py-1 rounded-md">08:00 AM, 08:00 PM</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-gray-50/70 p-3.5 rounded-2xl border border-gray-100/50">
-                        <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
-                            <span class="text-[13px] font-bold text-gray-700">Blood Sugar (Glucose)</span>
-                        </label>
-                        <span class="text-teal-primary text-[11px] font-bold bg-teal-50 px-2.5 py-1 rounded-md">07:30 AM</span>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
-        <!-- Bottom Navigation Bar (Matched to screenshot exactly) -->
-        <div class="absolute bottom-0 left-0 w-full bg-white border-t border-gray-100 flex justify-around items-center pt-3 pb-8 px-2 z-20 rounded-b-[34px]">
-            <!-- Home -->
-            <button class="flex flex-col items-center justify-center space-y-1 text-slate-400 hover:text-teal-primary transition group">
-                <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                <span class="text-[12px] font-semibold">Home</span>
+        <!-- Bottom Navigation Bar (Fixed at bottom of mobile container) -->
+        <div class="absolute bottom-0 left-0 w-full bg-white border-t border-[#f1f3f5] flex justify-between items-center pt-3 pb-8 px-8 rounded-b-[34px] z-20">
+            <!-- Home (Active) -->
+            <button class="flex flex-col items-center justify-center space-y-1 text-teal-primary group">
+                <svg class="w-[22px] h-[22px] group-hover:-translate-y-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span class="text-[10px] font-bold">Home</span>
             </button>
             <!-- Meds -->
-            <button class="flex flex-col items-center justify-center space-y-1 text-slate-400 hover:text-teal-primary transition group">
-                <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M6 3h12v2H6zm11 5H7c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-1 9H8v-2h8v2zm0-4H8v-2h8v2z"/></svg>
-                <span class="text-[12px] font-semibold">Meds</span>
+            <button class="flex flex-col items-center justify-center space-y-1 text-[#94a3b8] hover:text-teal-primary transition-colors group">
+                <svg class="w-[22px] h-[22px] group-hover:-translate-y-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M6 3h12v2H6zm11 5H7c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-1 9H8v-2h8v2zm0-4H8v-2h8v2z"/></svg>
+                <span class="text-[10px] font-semibold">Meds</span>
             </button>
             <!-- Roles -->
-            <button class="flex flex-col items-center justify-center space-y-1 text-slate-400 hover:text-teal-primary transition group">
-                 <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                <span class="text-[12px] font-semibold">Roles</span>
+            <button class="flex flex-col items-center justify-center space-y-1 text-[#94a3b8] hover:text-teal-primary transition-colors group">
+                 <svg class="w-[22px] h-[22px] group-hover:-translate-y-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                <span class="text-[10px] font-semibold">Roles</span>
             </button>
-            <!-- Routines (Active) -->
-            <button class="flex flex-col items-center justify-center space-y-1 text-teal-primary group">
-                <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                <span class="text-[12px] font-bold">Routines</span>
+            <!-- Routines -->
+            <button class="flex flex-col items-center justify-center space-y-1 text-[#94a3b8] hover:text-teal-primary transition-colors group">
+                <svg class="w-[22px] h-[22px] group-hover:-translate-y-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                <span class="text-[10px] font-semibold">Routines</span>
             </button>
         </div>
     </div>
@@ -502,37 +502,42 @@
 </div>
 
 <script>
+    // Toast Notification logic
     function copyToClipboard() {
         const toast = document.getElementById('toast-message');
         toast.classList.remove('hidden');
-        setTimeout(() => toast.classList.remove('opacity-0'), 10); 
+        setTimeout(() => toast.classList.remove('opacity-0'), 10); // Fade in
         setTimeout(() => {
-            toast.classList.add('opacity-0'); 
+            toast.classList.add('opacity-0'); // Fade out
             setTimeout(() => toast.classList.add('hidden'), 300);
         }, 2500);
     }
 
+    // Modal logic (Fixes alignment issue by using flex correctly)
     function openModal() {
         const modal = document.getElementById('modal-add-member');
         modal.classList.remove('hidden');
-        modal.classList.add('flex'); 
+        modal.classList.add('flex'); // This forces it to center properly
     }
 
     function closeModal() {
         const modal = document.getElementById('modal-add-member');
         modal.classList.add('hidden');
         modal.classList.remove('flex');
-        document.getElementById('new-member-name').value = ''; 
+        document.getElementById('new-member-name').value = ''; // Reset input
     }
 
+    // Dynamic Member addition logic
     let memberCount = 1;
     function addNewMember() {
         const nameInput = document.getElementById('new-member-name').value;
         if (!nameInput.trim()) return alert("Please enter a name");
 
+        // Increase count
         memberCount++;
         document.getElementById('member-count').innerText = `Members (${memberCount})`;
 
+        // Create new member HTML
         const newMemberHTML = `
         <div class="border border-gray-100 rounded-2xl p-4 flex items-center bg-white shadow-sm animation-fadeIn">
             <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mr-3 shrink-0">
@@ -548,10 +553,12 @@
         </div>
         `;
 
+        // Append to list and close modal
         document.getElementById('members-container').insertAdjacentHTML('beforeend', newMemberHTML);
         closeModal();
     }
 
+    // Screen Switching logic
     function showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.remove('active');
