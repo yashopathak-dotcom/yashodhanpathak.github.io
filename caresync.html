@@ -239,7 +239,7 @@
         
         <!-- Bottom CTA -->
         <div class="pb-8 pt-4 bg-white">
-            <button class="w-full bg-teal-primary text-white font-semibold py-4 rounded-xl text-lg hover:bg-teal-700 transition flex items-center justify-center">
+            <button onclick="showScreen('screen-create-space')" class="w-full bg-teal-primary text-white font-semibold py-4 rounded-xl text-lg hover:bg-teal-700 transition flex items-center justify-center">
                 Done
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
@@ -289,6 +289,72 @@
                     Add Member
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Screen 8.1: Create Space -->
+    <div id="screen-create-space" class="screen relative overflow-y-auto" style="padding-bottom: 24px;">
+        <!-- Header -->
+        <div class="pt-2 mb-6">
+            <button class="text-gray-400 font-medium text-sm flex items-center hover:text-gray-600 transition" onclick="showScreen('screen-care-team')">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                Back
+            </button>
+        </div>
+        
+        <div class="mb-6">
+            <span class="bg-teal-50 text-teal-primary text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Space Details</span>
+            <h2 class="text-3xl font-bold text-gray-900 mt-4 mb-2">Create Space</h2>
+            <p class="text-gray-500 text-sm leading-relaxed">Set up a dedicated care space for your family member or patient.</p>
+        </div>
+        
+        <div class="space-y-4 mb-6">
+            <!-- Space Name -->
+            <div>
+                <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Space Name</label>
+                <input type="text" value="Dad's Care Space" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+            </div>
+            
+            <!-- Patient Name -->
+            <div>
+                <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Name</label>
+                <input type="text" value="Robert Doe (Father)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary">
+            </div>
+            
+            <!-- Patient Condition / Notes -->
+            <div>
+                <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Patient Condition / Notes</label>
+                <textarea rows="2" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 font-medium focus:outline-none focus:border-teal-primary focus:ring-1 focus:ring-teal-primary resize-none">Type 2 Diabetes, Hypertension. Daily BP and Blood Sugar monitoring.</textarea>
+            </div>
+
+            <!-- Daily Checkup Metrics -->
+            <div>
+                <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2 mt-2">Daily Vitals To Track</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
+                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary" checked>
+                        <span class="text-sm font-medium text-gray-700">Blood Pressure</span>
+                    </label>
+                    <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
+                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary" checked>
+                        <span class="text-sm font-medium text-gray-700">Blood Sugar</span>
+                    </label>
+                    <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
+                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                        <span class="text-sm font-medium text-gray-700">Temperature</span>
+                    </label>
+                    <label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition">
+                        <input type="checkbox" class="w-4 h-4 text-teal-primary border-gray-300 rounded focus:ring-teal-primary">
+                        <span class="text-sm font-medium text-gray-700">Weight Tracker</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-auto pt-2">
+            <button class="w-full bg-teal-primary text-white font-semibold py-4 rounded-xl text-base hover:bg-teal-700 transition shadow-md shadow-teal-500/20">
+                Create Space & Continue
+            </button>
         </div>
     </div>
 
